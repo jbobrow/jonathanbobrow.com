@@ -1,10 +1,10 @@
 ---
 title: "Blinks"
 slug: "blinks"
-order: 1
-role: "Co-founder & Designer"
-year: "2017–2020"
-heroImage: "https://images.unsplash.com/photo-1611996575749-79a3a250f948?w=2400&h=1600&fit=crop"
+order: 2
+role: "Founder & Designer"
+year: "2018–2022"
+heroImage: "/images/projects/blinks/hero.png"
 heroAlt: "Smart tabletop game system with illuminated hexagonal tiles"
 detailImages:
   - src: "https://images.unsplash.com/photo-1606167668584-78701c57f13d?w=1600&h=1000&fit=crop"
