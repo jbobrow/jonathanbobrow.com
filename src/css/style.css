@@ -69,12 +69,10 @@ a {
 }
 
 .site-name {
-  display: flex;
-  flex-direction: column;
-  font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  display: inline;
+  font-size: 1.2rem;
+  font-weight: 900;
+  letter-spacing: 0.0em;
   line-height: 1.2;
 }
 
@@ -84,7 +82,7 @@ a {
 }
 
 .site-header nav a {
-  font-size: 0.8125rem;
+  font-size: 1rem;
   font-weight: 500;
   color: var(--color-text-muted);
   transition: color var(--transition-fast);
