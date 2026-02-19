@@ -2,6 +2,7 @@
 title: "Troxes"
 slug: "troxes"
 order: 3
+featured: true
 role: "Founder & Designer"
 year: "2014-2018"
 heroImage: "/images/projects/troxes/hero.jpg"

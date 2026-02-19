@@ -1,0 +1,75 @@
+---
+layout: base.njk
+title: Archive — Jonathan Bobrow
+activePage: archive
+permalink: /archive/
+---
+
+<main class="archive" id="archive">
+  {%- for group in collections.projectsByYear %}
+  <section class="archive-year">
+    <h2 class="archive-year-label">{{ group.year }}</h2>
+    <div class="archive-row">
+      {%- for project in group.projects %}
+      <div class="archive-item" data-slug="{{ project.data.slug }}">
+        <div class="archive-thumb">
+          <img
+            src="{{ project.data.heroImage }}"
+            alt="{{ project.data.heroAlt }}"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <div class="archive-item-info">
+          <span class="archive-item-title">{{ project.data.title }}</span>
+          <span class="archive-item-role">{{ project.data.role }}</span>
+        </div>
+      </div>
+      {%- endfor %}
+    </div>
+
+    <div class="archive-detail" data-year="{{ group.year }}" aria-hidden="true">
+      <div class="archive-detail-wrap">
+        {%- for project in group.projects %}
+        <div class="archive-detail-content" id="archive-detail-{{ project.data.slug }}" hidden>
+          <div class="archive-detail-inner">
+            <div class="archive-detail-header">
+              <h3>{{ project.data.title }}</h3>
+              <p class="project-meta">{{ project.data.role }}<span class="meta-sep"> · </span>{{ project.data.year }}</p>
+            </div>
+
+            <div class="project-description">
+              {{ project.content | safe }}
+            </div>
+
+            {%- if project.data.detailImages %}
+            <div class="project-gallery">
+              {%- for img in project.data.detailImages %}
+              <img src="{{ img.src }}" alt="{{ img.alt }}" loading="lazy" />
+              {%- endfor %}
+            </div>
+            {%- endif %}
+
+            {%- if project.data.video %}
+            <div class="project-video">
+              <div class="video-embed">
+                <iframe src="{{ project.data.video }}" allowfullscreen loading="lazy"></iframe>
+              </div>
+            </div>
+            {%- endif %}
+
+            {%- if project.data.externalLink %}
+            <a href="{{ project.data.externalLink }}" class="project-link" target="_blank" rel="noopener">
+              View Project →
+            </a>
+            {%- endif %}
+
+            <button class="archive-close" aria-label="Close project details">×</button>
+          </div>
+        </div>
+        {%- endfor %}
+      </div>
+    </div>
+  </section>
+  {%- endfor %}
+</main>

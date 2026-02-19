@@ -1,23 +1,25 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  // --- Scroll Reveal ---
+  // --- Scroll Reveal (Featured page) ---
   const projects = document.querySelectorAll('.project');
 
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        revealObserver.unobserve(entry.target);
-      }
+  if (projects.length) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.08,
+      rootMargin: '0px 0px -8% 0px'
     });
-  }, {
-    threshold: 0.08,
-    rootMargin: '0px 0px -8% 0px'
-  });
 
-  projects.forEach(project => revealObserver.observe(project));
+    projects.forEach(project => revealObserver.observe(project));
+  }
 
-  // --- Expand / Collapse ---
+  // --- Featured: Expand / Collapse ---
   function closeProject(section) {
     const detail = section.querySelector('.project-detail');
     const hero = section.querySelector('.project-hero');
@@ -44,11 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
     hero.setAttribute('aria-expanded', 'true');
     section.classList.add('is-open');
 
-    // Wait for the grid transition to start, then scroll detail into view
     setTimeout(() => {
       const heroRect = hero.getBoundingClientRect();
-      const detailRect = detail.getBoundingClientRect();
-      // Scroll so the hero bottom + detail are visible
       const targetTop = window.scrollY + heroRect.top - 60;
       window.scrollTo({ top: targetTop, behavior: 'smooth' });
     }, 200);
@@ -59,7 +58,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const isOpen = section.classList.contains('is-open');
 
     if (isOpen) {
-      // Scroll to the hero top first, then collapse after scroll settles
       const heroRect = hero.getBoundingClientRect();
       const targetTop = window.scrollY + heroRect.top - 60;
       window.scrollTo({ top: targetTop, behavior: 'smooth' });
@@ -82,19 +80,143 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // --- Close Buttons ---
+  // --- Featured: Close Buttons ---
   document.querySelectorAll('.project-close').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
       const section = btn.closest('.project');
       const hero = section.querySelector('.project-hero');
 
-      // Scroll to hero first, then collapse
       const heroRect = hero.getBoundingClientRect();
       const targetTop = window.scrollY + heroRect.top - 60;
       window.scrollTo({ top: targetTop, behavior: 'smooth' });
       setTimeout(() => {
         closeProject(section);
+      }, 350);
+    });
+  });
+
+  // ===== Archive Page =====
+  const archiveRows = document.querySelectorAll('.archive-row');
+  if (!archiveRows.length) return;
+
+  // --- Desktop: Cursor-based horizontal scrolling ---
+  const isDesktop = window.matchMedia('(min-width: 769px)');
+
+  function setupCursorScroll(row) {
+    if (row.scrollWidth <= row.clientWidth) {
+      return;
+    }
+
+    row.classList.add('is-scrollable');
+
+    row.addEventListener('mousemove', (e) => {
+      if (!isDesktop.matches) return;
+      const rect = row.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const ratio = x / rect.width;
+      // Ease the edges so content isn't clipped at extremes
+      const eased = Math.max(0, Math.min(1, (ratio - 0.1) / 0.8));
+      const maxScroll = row.scrollWidth - row.clientWidth;
+      row.scrollLeft = eased * maxScroll;
+    });
+  }
+
+  archiveRows.forEach(setupCursorScroll);
+
+  // Re-check scrollable state on resize
+  window.addEventListener('resize', () => {
+    archiveRows.forEach(row => {
+      if (row.scrollWidth > row.clientWidth) {
+        row.classList.add('is-scrollable');
+      } else {
+        row.classList.remove('is-scrollable');
+      }
+    });
+  });
+
+  // --- Archive: Expand / Collapse project detail ---
+  function closeArchiveDetail(yearSection) {
+    const detail = yearSection.querySelector('.archive-detail');
+    detail.setAttribute('aria-hidden', 'true');
+
+    // Hide all detail content panels
+    detail.querySelectorAll('.archive-detail-content').forEach(panel => {
+      panel.hidden = true;
+    });
+
+    // Remove active state from all items
+    yearSection.querySelectorAll('.archive-item.is-active').forEach(item => {
+      item.classList.remove('is-active');
+    });
+  }
+
+  function closeAllArchiveDetails(except) {
+    document.querySelectorAll('.archive-year').forEach(section => {
+      if (section !== except) {
+        closeArchiveDetail(section);
+      }
+    });
+  }
+
+  function openArchiveProject(item) {
+    const slug = item.dataset.slug;
+    const yearSection = item.closest('.archive-year');
+    const detail = yearSection.querySelector('.archive-detail');
+    const panel = document.getElementById('archive-detail-' + slug);
+
+    if (!panel) return;
+
+    // Close other year sections
+    closeAllArchiveDetails(yearSection);
+
+    // Hide other panels in this year, remove active state
+    detail.querySelectorAll('.archive-detail-content').forEach(p => {
+      p.hidden = true;
+    });
+    yearSection.querySelectorAll('.archive-item.is-active').forEach(i => {
+      i.classList.remove('is-active');
+    });
+
+    // Show this panel and mark item active
+    panel.hidden = false;
+    item.classList.add('is-active');
+    detail.setAttribute('aria-hidden', 'false');
+
+    // Scroll detail into view
+    setTimeout(() => {
+      const detailRect = detail.getBoundingClientRect();
+      const targetTop = window.scrollY + detailRect.top - 80;
+      window.scrollTo({ top: targetTop, behavior: 'smooth' });
+    }, 200);
+  }
+
+  // Click archive thumbnails
+  document.querySelectorAll('.archive-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const isActive = item.classList.contains('is-active');
+
+      if (isActive) {
+        const yearSection = item.closest('.archive-year');
+        closeArchiveDetail(yearSection);
+      } else {
+        openArchiveProject(item);
+      }
+    });
+  });
+
+  // Archive close buttons
+  document.querySelectorAll('.archive-close').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const yearSection = btn.closest('.archive-year');
+      const row = yearSection.querySelector('.archive-row');
+
+      const rowRect = row.getBoundingClientRect();
+      const targetTop = window.scrollY + rowRect.top - 80;
+      window.scrollTo({ top: targetTop, behavior: 'smooth' });
+      setTimeout(() => {
+        closeArchiveDetail(yearSection);
       }, 350);
     });
   });

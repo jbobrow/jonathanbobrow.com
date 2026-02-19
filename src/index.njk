@@ -1,19 +1,11 @@
 ---
 layout: base.njk
 title: Jonathan Bobrow
+activePage: featured
 ---
 
-<header class="site-header">
-  <a href="/" class="site-name">{{ site.name }}</a>
-  <nav>
-    <a href="#work">Work</a>
-    <a href="#about">About</a>
-    <a href="mailto:{{ site.email }}">Contact</a>
-  </nav>
-</header>
-
 <main id="work">
-  {%- for project in collections.project %}
+  {%- for project in collections.featured %}
   <section class="project" id="{{ project.data.slug }}">
     <div class="project-hero" role="button" tabindex="0" aria-expanded="false" aria-controls="detail-{{ project.data.slug }}">
       <img
@@ -61,21 +53,3 @@ title: Jonathan Bobrow
   </section>
   {%- endfor %}
 </main>
-
-<section class="about" id="about">
-  <div class="about-inner">
-    <h2>About</h2>
-    <p>Jonathan Bobrow is a designer, inventor, and programmer — constantly curious about the space between play, learning, and technology.</p>
-    <p>He co-founded <a href="https://move38.com" target="_blank" rel="noopener">Move38</a>, a game technology company, and created <a href="https://blinks.games" target="_blank" rel="noopener">Blinks</a>, a smart tabletop game system. He holds a Master's from the <a href="https://media.mit.edu" target="_blank" rel="noopener">MIT Media Lab</a> and studied Design|Media Arts and Mathematics at UCLA.</p>
-    <p>His work spans hardware, software, tangible interfaces, and interactive experiences — guided by the belief that code is just another form of creative expression.</p>
-    <div class="about-links">
-      <a href="mailto:{{ site.email }}">Email</a>
-      <a href="https://instagram.com/jonathanbobrow" target="_blank" rel="noopener">Instagram</a>
-      <a href="https://github.com/jbobrow" target="_blank" rel="noopener">GitHub</a>
-    </div>
-  </div>
-</section>
-
-<footer class="site-footer">
-  <p>© {{ site.name }}</p>
-</footer>
