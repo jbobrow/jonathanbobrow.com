@@ -152,16 +152,19 @@ document.addEventListener('DOMContentLoaded', () => {
       item.classList.remove('is-active');
     });
 
-    // Trigger the grid collapse animation first
+    // Trigger the grid collapse animation
     detail.setAttribute('aria-hidden', 'true');
 
-    // Hide panels after the CSS transition completes so the grid animates smoothly
+    // Hide panels after transition — guarded so a reopen in the
+    // meantime won't have its panel nuked by a stale handler
     detail.addEventListener('transitionend', function handler(e) {
       if (e.propertyName !== 'grid-template-rows') return;
       detail.removeEventListener('transitionend', handler);
-      detail.querySelectorAll('.archive-detail-content').forEach(panel => {
-        panel.hidden = true;
-      });
+      if (detail.getAttribute('aria-hidden') === 'true') {
+        detail.querySelectorAll('.archive-detail-content').forEach(panel => {
+          panel.hidden = true;
+        });
+      }
     });
   }
 
@@ -184,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Close other year sections
     closeAllArchiveDetails(yearSection);
 
-    // Hide other panels in this year, remove active state
+    // Swap content within this year: hide other panels, clear active
     detail.querySelectorAll('.archive-detail-content').forEach(p => {
       p.hidden = true;
     });
@@ -195,14 +198,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // Show this panel and mark item active
     panel.hidden = false;
     item.classList.add('is-active');
+
+    const wasAlreadyOpen = detail.getAttribute('aria-hidden') === 'false';
     detail.setAttribute('aria-hidden', 'false');
 
-    // Scroll detail into view
-    setTimeout(() => {
+    // Scroll detail into view (skip delay if already open — content just swapped)
+    if (wasAlreadyOpen) {
       const detailRect = detail.getBoundingClientRect();
       const targetTop = window.scrollY + detailRect.top - 80;
       window.scrollTo({ top: targetTop, behavior: 'smooth' });
-    }, 200);
+    } else {
+      setTimeout(() => {
+        const detailRect = detail.getBoundingClientRect();
+        const targetTop = window.scrollY + detailRect.top - 80;
+        window.scrollTo({ top: targetTop, behavior: 'smooth' });
+      }, 200);
+    }
   }
 
   // Click archive thumbnails

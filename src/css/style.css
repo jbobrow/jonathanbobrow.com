@@ -377,11 +377,6 @@ main {
   transform: scale(1.04);
 }
 
-.archive-item.is-active .archive-thumb {
-  outline: 2px solid var(--color-text);
-  outline-offset: 2px;
-}
-
 .archive-item-info {
   display: flex;
   flex-direction: column;
