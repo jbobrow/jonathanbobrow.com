@@ -1,0 +1,409 @@
+/* ===== Design Tokens ===== */
+:root {
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --color-bg: #fafafa;
+  --color-text: #1a1a1a;
+  --color-text-muted: #777;
+  --color-border: #e0e0e0;
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 4rem;
+  --space-xl: 8rem;
+  --max-content: 44rem;
+  --transition-smooth: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== Reset ===== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== Base ===== */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-text);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ===== Header ===== */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-sm) var(--space-md);
+  background: rgba(250, 250, 250, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: background var(--transition-fast);
+}
+
+.site-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.site-header nav {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.site-header nav a {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  transition: color var(--transition-fast);
+}
+
+.site-header nav a:hover {
+  color: var(--color-text);
+}
+
+/* ===== Main ===== */
+main {
+  padding-top: 3rem; /* clear fixed header */
+}
+
+/* ===== Project Section ===== */
+.project {
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.project.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== Project Hero ===== */
+.project-hero {
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.project-hero img {
+  width: 100%;
+  height: 85vh;
+  object-fit: cover;
+  transition: transform var(--transition-smooth), filter var(--transition-smooth);
+}
+
+.project-hero:hover img {
+  transform: scale(1.015);
+}
+
+/* Dim hero when project is open */
+.project.is-open .project-hero img {
+  filter: brightness(0.7);
+}
+
+.project-hero-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--space-lg) var(--space-md);
+  padding-top: var(--space-xl);
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.55));
+  color: #fff;
+  pointer-events: none;
+}
+
+.project-hero-overlay h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  margin-bottom: 0.25rem;
+}
+
+.project-meta {
+  font-size: 0.875rem;
+  font-weight: 400;
+  opacity: 0.85;
+}
+
+.meta-sep {
+  margin: 0 0.15em;
+}
+
+/* ===== Project Detail (Expand/Collapse) ===== */
+.project-detail {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--transition-smooth);
+  overflow: hidden;
+}
+
+.project-detail[aria-hidden="false"] {
+  grid-template-rows: 1fr;
+}
+
+.project-detail-inner {
+  overflow: hidden;
+  min-height: 0;
+  padding: 0 var(--space-md);
+  background: #f0f0f0;
+  transition: padding var(--transition-smooth);
+}
+
+.project-detail[aria-hidden="false"] .project-detail-inner {
+  padding: var(--space-lg) var(--space-md) var(--space-xl);
+}
+
+.project-detail-inner > * {
+  opacity: 0;
+  transform: translateY(1rem);
+  transition: opacity 0.5s ease 0.15s, transform 0.5s ease 0.15s;
+}
+
+.project-detail[aria-hidden="false"] .project-detail-inner > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== Project Description ===== */
+.project-description {
+  max-width: var(--max-content);
+  margin: 0 auto var(--space-lg);
+}
+
+.project-description p {
+  margin-bottom: var(--space-sm);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--color-text);
+}
+
+.project-description p:last-child {
+  margin-bottom: 0;
+}
+
+.project-description h2 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-top: var(--space-md);
+  margin-bottom: var(--space-xs);
+}
+
+/* ===== Project Gallery ===== */
+.project-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-xs);
+  max-width: 64rem;
+  margin: 0 auto var(--space-lg);
+}
+
+.project-gallery img {
+  width: 100%;
+  border-radius: 2px;
+}
+
+/* ===== Video Embed ===== */
+.project-video {
+  max-width: var(--max-content);
+  margin: 0 auto var(--space-lg);
+}
+
+.video-embed {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+}
+
+.video-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* ===== Project Link ===== */
+.project-link {
+  display: inline-block;
+  max-width: var(--max-content);
+  margin: 0 auto var(--space-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 2px;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.project-link:hover {
+  color: var(--color-text);
+  border-color: var(--color-text);
+}
+
+/* Center project-link as a block */
+.project-detail-inner .project-link {
+  display: block;
+  max-width: var(--max-content);
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+}
+
+/* ===== Close Button ===== */
+.project-close {
+  display: block;
+  margin: var(--space-md) auto 0;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  transition: background var(--transition-fast), color var(--transition-fast);
+  line-height: 1;
+}
+
+.project-close:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--color-text);
+}
+
+/* ===== About ===== */
+.about {
+  padding: var(--space-xl) var(--space-md);
+  border-top: 1px solid var(--color-border);
+}
+
+.about-inner {
+  max-width: var(--max-content);
+  margin: 0 auto;
+}
+
+.about h2 {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-md);
+}
+
+.about p {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  margin-bottom: var(--space-sm);
+}
+
+.about p:last-of-type {
+  margin-bottom: var(--space-lg);
+}
+
+.about a {
+  border-bottom: 1px solid var(--color-border);
+  transition: border-color var(--transition-fast);
+}
+
+.about a:hover {
+  border-color: var(--color-text);
+}
+
+.about-links {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.about-links a {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 1px;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.about-links a:hover {
+  color: var(--color-text);
+  border-color: var(--color-text);
+}
+
+/* ===== Footer ===== */
+.site-footer {
+  padding: var(--space-xl) var(--space-md) var(--space-lg);
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .project-hero img {
+    height: 60vh;
+  }
+
+  .project-hero-overlay {
+    padding: var(--space-md);
+    padding-top: var(--space-lg);
+  }
+
+  .project-hero-overlay h2 {
+    font-size: 1.375rem;
+  }
+
+  .project-detail-inner {
+    padding: 0 var(--space-sm);
+  }
+
+  .project-detail[aria-hidden="false"] .project-detail-inner {
+    padding: var(--space-md) var(--space-sm) var(--space-lg);
+  }
+
+  .project-gallery {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-header {
+    padding: var(--space-xs) var(--space-sm);
+  }
+
+  .site-header nav {
+    gap: var(--space-sm);
+  }
+
+  .project-hero img {
+    height: 50vh;
+  }
+}
