@@ -97,8 +97,16 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ===== Archive Page =====
+  const archiveYears = document.querySelectorAll('.archive-year');
   const archiveRows = document.querySelectorAll('.archive-row');
   if (!archiveRows.length) return;
+
+  // --- Staggered fade-in for archive year sections ---
+  archiveYears.forEach((section, i) => {
+    setTimeout(() => {
+      section.classList.add('is-visible');
+    }, i * 100);
+  });
 
   // --- Desktop: Cursor-based horizontal scrolling ---
   const isDesktop = window.matchMedia('(min-width: 769px)');
@@ -138,16 +146,22 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Archive: Expand / Collapse project detail ---
   function closeArchiveDetail(yearSection) {
     const detail = yearSection.querySelector('.archive-detail');
-    detail.setAttribute('aria-hidden', 'true');
 
-    // Hide all detail content panels
-    detail.querySelectorAll('.archive-detail-content').forEach(panel => {
-      panel.hidden = true;
-    });
-
-    // Remove active state from all items
+    // Remove active state from items immediately
     yearSection.querySelectorAll('.archive-item.is-active').forEach(item => {
       item.classList.remove('is-active');
+    });
+
+    // Trigger the grid collapse animation first
+    detail.setAttribute('aria-hidden', 'true');
+
+    // Hide panels after the CSS transition completes so the grid animates smoothly
+    detail.addEventListener('transitionend', function handler(e) {
+      if (e.propertyName !== 'grid-template-rows') return;
+      detail.removeEventListener('transitionend', handler);
+      detail.querySelectorAll('.archive-detail-content').forEach(panel => {
+        panel.hidden = true;
+      });
     });
   }
 
@@ -212,12 +226,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const yearSection = btn.closest('.archive-year');
       const row = yearSection.querySelector('.archive-row');
 
+      // Start closing immediately — CSS handles the smooth animation
+      closeArchiveDetail(yearSection);
+
+      // Scroll back to the row
       const rowRect = row.getBoundingClientRect();
       const targetTop = window.scrollY + rowRect.top - 80;
       window.scrollTo({ top: targetTop, behavior: 'smooth' });
-      setTimeout(() => {
-        closeArchiveDetail(yearSection);
-      }, 350);
     });
   });
 

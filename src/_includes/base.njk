@@ -16,10 +16,7 @@
 </head>
 <body>
   <header class="site-header">
-    <a href="/" class="site-name">
-      <span>Jonathan</span>
-      <span>Bobrow</span>
-    </a>
+    <a href="/" class="site-name">{{ site.name }}</a>
     <nav>
       <a href="/"{% if activePage == "featured" %} class="is-active"{% endif %}>Featured</a>
       <a href="/archive/"{% if activePage == "archive" %} class="is-active"{% endif %}>Archive</a>

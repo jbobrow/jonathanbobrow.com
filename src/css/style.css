@@ -317,6 +317,14 @@ main {
 
 .archive-year {
   margin-bottom: var(--space-xs);
+  opacity: 0;
+  transform: translateY(1rem);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.archive-year.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .archive-year-label {
