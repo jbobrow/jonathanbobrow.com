@@ -2,6 +2,7 @@
 title: "MIT Media Lab"
 slug: "mit-media-lab"
 order: 7
+featured: false
 role: "Researcher"
 year: "2013–2016"
 heroImage: "/images/projects/mit-media-lab/hero.jpg"

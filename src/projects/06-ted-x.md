@@ -2,6 +2,7 @@
 title: "TEDxBratislava"
 slug: "ted-x"
 order: 6
+featured: false
 role: "Speaker"
 year: "2017"
 heroImage: "/images/projects/ted-x/hero.jpg"

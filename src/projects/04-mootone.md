@@ -2,6 +2,7 @@
 title: "Mootone"
 slug: "mootone"
 order: 4
+featured: true
 role: "Founder & Designer"
 year: "2017"
 heroImage: "/images/projects/mootone/hero.jpg"

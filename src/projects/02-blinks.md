@@ -2,6 +2,7 @@
 title: "Blinks"
 slug: "blinks"
 order: 2
+featured: true
 role: "Founder & Designer"
 year: "2018–2022"
 heroImage: "/images/projects/blinks/hero.png"
