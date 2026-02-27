@@ -3,6 +3,19 @@ export default function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/css");
   eleventyConfig.addPassthroughCopy("src/js");
 
+  // Returns true if any project in the collection has a heroSketch
+  eleventyConfig.addFilter("hasSketches", function(projects) {
+    return projects.some(p => p.data.heroSketch);
+  });
+
+  // Returns deduplicated array of sketch names used across projects
+  eleventyConfig.addFilter("sketchSlugs", function(projects) {
+    const slugs = projects
+      .filter(p => p.data.heroSketch)
+      .map(p => p.data.heroSketch);
+    return [...new Set(slugs)];
+  });
+
   // All projects sorted by order
   eleventyConfig.addCollection("project", function(collectionApi) {
     return collectionApi.getFilteredByTag("project")

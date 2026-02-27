@@ -137,6 +137,22 @@ main {
   filter: brightness(0.7);
 }
 
+/* p5.js sketch hero */
+.project-hero-sketch {
+  width: 100%;
+  height: 85vh;
+  overflow: hidden;
+}
+
+.project-hero canvas {
+  display: block;
+  transition: filter var(--transition-smooth);
+}
+
+.project.is-open .project-hero canvas {
+  filter: brightness(0.7);
+}
+
 .project-hero-overlay {
   position: absolute;
   bottom: 0;
@@ -541,6 +557,10 @@ main {
     height: 60vh;
   }
 
+  .project-hero-sketch {
+    height: 60vh;
+  }
+
   .project-hero-overlay {
     padding: var(--space-md);
     padding-top: var(--space-lg);
@@ -592,6 +612,10 @@ main {
   }
 
   .project-hero img {
+    height: 50vh;
+  }
+
+  .project-hero-sketch {
     height: 50vh;
   }
 

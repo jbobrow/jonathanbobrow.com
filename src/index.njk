@@ -8,11 +8,15 @@ activePage: featured
   {%- for project in collections.featured %}
   <section class="project" id="{{ project.data.slug }}">
     <div class="project-hero" role="button" tabindex="0" aria-expanded="false" aria-controls="detail-{{ project.data.slug }}">
+      {%- if project.data.heroSketch %}
+      <div class="project-hero-sketch" data-sketch="{{ project.data.heroSketch }}"></div>
+      {%- else %}
       <img
         src="{{ project.data.heroImage }}"
         alt="{{ project.data.heroAlt }}"
         {% if loop.first %}fetchpriority="high"{% else %}loading="lazy" decoding="async"{% endif %}
       />
+      {%- endif %}
       <div class="project-hero-overlay">
         <h2>{{ project.data.title }}</h2>
         <p class="project-meta">{{ project.data.role }}<span class="meta-sep"> · </span>{{ project.data.year }}</p>

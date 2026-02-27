@@ -46,5 +46,21 @@
   </footer>
 
   <script src="/js/main.js" defer></script>
+{%- if activePage == "featured" and (collections.featured | hasSketches) %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.0/p5.min.js" defer></script>
+{%- for slug in (collections.featured | sketchSlugs) %}
+<script src="/js/sketches/{{ slug }}.js" defer></script>
+{%- endfor %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('[data-sketch]').forEach(function(el) {
+      var name = el.dataset.sketch;
+      if (window.p5Sketches && window.p5Sketches[name]) {
+        new p5(function(p) { window.p5Sketches[name](p, el); }, el);
+      }
+    });
+  });
+</script>
+{%- endif %}
 </body>
 </html>
