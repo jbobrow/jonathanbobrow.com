@@ -96,6 +96,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // ===== About toggle =====
+  const aboutToggles = document.querySelectorAll('[data-about-toggle]');
+  const aboutSection = document.getElementById('about');
+
+  if (aboutToggles.length && aboutSection) {
+    aboutToggles.forEach(toggle => {
+      toggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        const isHidden = aboutSection.getAttribute('aria-hidden') === 'true';
+        aboutSection.setAttribute('aria-hidden', isHidden ? 'false' : 'true');
+        aboutToggles.forEach(t => t.classList.toggle('is-active', isHidden));
+        if (isHidden) {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
+    });
+  }
+
   // ===== Archive Page =====
   const archiveYears = document.querySelectorAll('.archive-year');
   const archiveRows = document.querySelectorAll('.archive-row');
