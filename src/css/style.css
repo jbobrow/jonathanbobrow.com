@@ -53,32 +53,30 @@ a {
 
 /* ===== Header ===== */
 .site-header {
-  position: fixed;
+  position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
   z-index: 100;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
-  padding: var(--space-sm) var(--space-md);
-  background: rgba(250, 250, 250, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  transition: background var(--transition-fast);
+  padding: var(--space-md) var(--space-md) var(--space-sm);
+  background: var(--color-bg);
 }
 
 .site-name {
-  display: inline;
-  font-size: 1.2rem;
-  font-weight: 900;
-  letter-spacing: 0.0em;
-  line-height: 1.2;
+  display: flex;
+  flex-direction: column;
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1;
 }
 
 .site-header nav {
   display: flex;
   gap: var(--space-md);
+  padding-bottom: 0.25rem;
 }
 
 .site-header nav a {
@@ -98,7 +96,6 @@ a {
 
 /* ===== Main ===== */
 main {
-  padding-top: 3rem; /* clear fixed header */
 }
 
 /* ===== Project Section ===== */
@@ -609,7 +606,10 @@ main {
 
 @media (max-width: 480px) {
   .site-header {
-    padding: var(--space-xs) var(--space-sm);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-sm) var(--space-sm);
   }
 
   .site-header nav {
