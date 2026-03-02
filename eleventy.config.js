@@ -48,6 +48,7 @@ export default function(eleventyConfig) {
 }
 
 export const config = {
+  pathPrefix: "/jonathanbobrow.com/",
   dir: {
     input: "src",
     output: "_site"

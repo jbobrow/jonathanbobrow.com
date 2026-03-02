@@ -11,7 +11,7 @@ permalink: /archive/
     <div class="archive-item" data-slug="{{ project.data.slug }}">
       <div class="archive-thumb">
         <img
-          src="{{ project.data.heroImage }}"
+          src="{{ project.data.heroImage | url }}"
           alt="{{ project.data.heroAlt }}"
           loading="lazy"
           decoding="async"

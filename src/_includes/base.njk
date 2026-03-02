@@ -9,17 +9,17 @@
   <meta property="og:description" content="{{ site.name }} — {{ site.description }}" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="{{ site.url }}" />
-  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="{{ '/css/style.css' | url }}" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&display=swap" rel="stylesheet" />
 </head>
 <body>
   <header class="site-header">
-    <a href="/" class="site-name" data-about-toggle><span>Jonathan</span><span>Bobrow</span></a>
+    <a href="{{ '/' | url }}" class="site-name" data-about-toggle><span>Jonathan</span><span>Bobrow</span></a>
     <nav>
-      <a href="/"{% if activePage == "featured" %} class="is-active"{% endif %}>Featured</a>
-      <a href="/archive/"{% if activePage == "archive" %} class="is-active"{% endif %}>Archive</a>
+      <a href="{{ '/' | url }}"{% if activePage == "featured" %} class="is-active"{% endif %}>Featured</a>
+      <a href="{{ '/archive/' | url }}"{% if activePage == "archive" %} class="is-active"{% endif %}>Archive</a>
       <a href="#about" data-about-toggle>About</a>
     </nav>
   </header>
@@ -44,11 +44,11 @@
     <p>&copy; {{ site.name }}</p>
   </footer>
 
-  <script src="/js/main.js" defer></script>
+  <script src="{{ '/js/main.js' | url }}" defer></script>
 {%- if activePage == "featured" and (collections.featured | hasSketches) %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.0/p5.min.js" defer></script>
 {%- for slug in (collections.featured | sketchSlugs) %}
-<script src="/js/sketches/{{ slug }}.js" defer></script>
+<script src="{{ ('/js/sketches/' + slug + '.js') | url }}" defer></script>
 {%- endfor %}
 <script>
   document.addEventListener('DOMContentLoaded', function() {

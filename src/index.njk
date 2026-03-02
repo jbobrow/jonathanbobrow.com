@@ -12,7 +12,7 @@ activePage: featured
       <div class="project-hero-sketch" data-sketch="{{ project.data.heroSketch }}"></div>
       {%- else %}
       <img
-        src="{{ project.data.heroImage }}"
+        src="{{ project.data.heroImage | url }}"
         alt="{{ project.data.heroAlt }}"
         {% if loop.first %}fetchpriority="high"{% else %}loading="lazy" decoding="async"{% endif %}
       />
