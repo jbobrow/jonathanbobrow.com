@@ -394,6 +394,18 @@ main {
   cursor: pointer;
 }
 
+/* Staggered fade-in: JS adds .will-animate to the grid, then .is-visible per item */
+.archive-grid.will-animate .archive-item {
+  opacity: 0;
+  transform: translateY(0.5rem);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.archive-grid.will-animate .archive-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .archive-item.is-active .archive-thumb {
   outline: 2px solid var(--color-text);
   outline-offset: 2px;

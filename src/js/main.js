@@ -157,7 +157,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ===== Archive Page =====
+  // ===== Archive Page: staggered fade-in =====
+  const archiveGrid = document.querySelector('.archive-grid');
+
+  if (archiveGrid) {
+    const archiveItems = [...archiveGrid.querySelectorAll('.archive-item')];
+
+    // Hide items before first paint so the reveal is always a fade-in
+    archiveGrid.classList.add('will-animate');
+
+    const revealArchive = () => {
+      archiveItems.forEach((item, i) => {
+        item.style.transitionDelay = (i * 60) + 'ms';
+        item.classList.add('is-visible');
+      });
+    };
+
+    // Wait for all images to load, then reveal
+    if (document.readyState === 'complete') {
+      revealArchive();
+    } else {
+      window.addEventListener('load', revealArchive);
+    }
+  }
+
+  // ===== Archive Page: detail expand =====
   const archiveDetail = document.querySelector('.archive-detail');
 
   if (archiveDetail) {
