@@ -157,6 +157,61 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ===== Archive Page =====
+  const archiveDetail = document.querySelector('.archive-detail');
+
+  if (archiveDetail) {
+    function closeArchiveDetail() {
+      document.querySelectorAll('.archive-item.is-active').forEach(i => i.classList.remove('is-active'));
+      archiveDetail.setAttribute('aria-hidden', 'true');
+      archiveDetail.addEventListener('transitionend', function h(e) {
+        if (e.propertyName !== 'grid-template-rows') return;
+        archiveDetail.removeEventListener('transitionend', h);
+        if (archiveDetail.getAttribute('aria-hidden') === 'true') {
+          archiveDetail.querySelectorAll('.archive-detail-content').forEach(p => { p.hidden = true; });
+        }
+      });
+    }
+
+    function openArchiveProject(item) {
+      const panel = document.getElementById('archive-detail-' + item.dataset.slug);
+      if (!panel) return;
+
+      archiveDetail.querySelectorAll('.archive-detail-content').forEach(p => { p.hidden = true; });
+      document.querySelectorAll('.archive-item.is-active').forEach(i => i.classList.remove('is-active'));
+
+      panel.hidden = false;
+      item.classList.add('is-active');
+
+      const wasOpen = archiveDetail.getAttribute('aria-hidden') === 'false';
+      archiveDetail.setAttribute('aria-hidden', 'false');
+
+      const scroll = () => window.scrollTo({
+        top: window.scrollY + archiveDetail.getBoundingClientRect().top - 80,
+        behavior: 'smooth'
+      });
+      wasOpen ? scroll() : setTimeout(scroll, 200);
+    }
+
+    document.querySelectorAll('.archive-item').forEach(item => {
+      item.addEventListener('click', () => {
+        item.classList.contains('is-active') ? closeArchiveDetail() : openArchiveProject(item);
+      });
+    });
+
+    document.querySelectorAll('.archive-close').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        closeArchiveDetail();
+        const grid = document.querySelector('.archive-grid');
+        window.scrollTo({
+          top: window.scrollY + grid.getBoundingClientRect().top - 80,
+          behavior: 'smooth'
+        });
+      });
+    });
+  }
+
   // ===== About toggle =====
   const aboutToggles = document.querySelectorAll('[data-about-toggle]');
   const aboutSection = document.getElementById('about');
