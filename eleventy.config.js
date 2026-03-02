@@ -1,7 +1,15 @@
+const PATH_PREFIX = "/jonathanbobrow.com";
+
 export default function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/images");
   eleventyConfig.addPassthroughCopy("src/css");
   eleventyConfig.addPassthroughCopy("src/js");
+
+  // Prefix root-relative src paths in rendered markdown content
+  eleventyConfig.addTransform("prefixImagePaths", function(content, outputPath) {
+    if (!outputPath?.endsWith(".html")) return content;
+    return content.replace(/src="(\/images\/[^"]+)"/g, `src="${PATH_PREFIX}$1"`);
+  });
 
   // Returns true if any project in the collection has a heroSketch
   eleventyConfig.addFilter("hasSketches", function(projects) {
@@ -48,7 +56,7 @@ export default function(eleventyConfig) {
 }
 
 export const config = {
-  pathPrefix: "/jonathanbobrow.com/",
+  pathPrefix: PATH_PREFIX + "/",
   dir: {
     input: "src",
     output: "_site"

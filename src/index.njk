@@ -34,7 +34,7 @@ activePage: featured
         {%- if project.data.detailImages %}
         <div class="project-gallery">
           {%- for img in project.data.detailImages %}
-          <img src="{{ img.src }}" alt="{{ img.alt }}" loading="lazy" />
+          <img src="{{ img.src | url }}" alt="{{ img.alt }}" loading="lazy" />
           {%- endfor %}
         </div>
         {%- endif %}
