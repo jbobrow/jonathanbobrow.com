@@ -198,8 +198,23 @@ document.addEventListener('DOMContentLoaded', () => {
   const archiveDetail = document.querySelector('.archive-detail');
 
   if (archiveDetail) {
+    // Create tail element once
+    const tail = document.createElement('div');
+    tail.className = 'archive-detail-tail';
+    archiveGrid.appendChild(tail);
+
+    function positionTail(item) {
+      const itemRect = item.getBoundingClientRect();
+      const gridRect = archiveGrid.getBoundingClientRect();
+      const detailRect = archiveDetail.getBoundingClientRect();
+      tail.style.left = (itemRect.left + itemRect.width / 2 - gridRect.left) + 'px';
+      tail.style.top = (detailRect.top - gridRect.top - 10) + 'px';
+      tail.classList.add('is-visible');
+    }
+
     function closeArchiveDetail() {
       document.querySelectorAll('.archive-item.is-active').forEach(i => i.classList.remove('is-active'));
+      tail.classList.remove('is-visible');
       archiveDetail.setAttribute('aria-hidden', 'true');
       archiveDetail.addEventListener('transitionend', function h(e) {
         if (e.propertyName !== 'grid-template-rows') return;
@@ -214,20 +229,78 @@ document.addEventListener('DOMContentLoaded', () => {
       const panel = document.getElementById('archive-detail-' + item.dataset.slug);
       if (!panel) return;
 
-      archiveDetail.querySelectorAll('.archive-detail-content').forEach(p => { p.hidden = true; });
-      document.querySelectorAll('.archive-item.is-active').forEach(i => i.classList.remove('is-active'));
+      const wasOpen = archiveDetail.getAttribute('aria-hidden') === 'false';
+      const activeItem = archiveGrid.querySelector('.archive-item.is-active');
+      const sameRow = wasOpen && activeItem &&
+        Math.abs(activeItem.getBoundingClientRect().top - item.getBoundingClientRect().top) < 5;
 
+      if (sameRow) {
+        // Fade out current content, swap, fade new content in
+        const outEls = [...archiveDetail.querySelectorAll('.archive-detail-inner > *')];
+        outEls.forEach(el => {
+          el.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+          el.style.opacity = '0';
+          el.style.transform = 'translateY(-0.25rem)';
+        });
+
+        setTimeout(() => {
+          archiveDetail.querySelectorAll('.archive-detail-content').forEach(p => { p.hidden = true; });
+          archiveGrid.querySelectorAll('.archive-item.is-active').forEach(i => i.classList.remove('is-active'));
+          panel.hidden = false;
+          item.classList.add('is-active');
+
+          // Snap new content to start state, then let CSS transition take over
+          const inEls = [...panel.querySelectorAll('.archive-detail-inner > *')];
+          inEls.forEach(el => { el.style.transition = 'none'; el.style.opacity = '0'; el.style.transform = 'translateY(0.5rem)'; });
+          archiveDetail.offsetHeight;
+          inEls.forEach(el => { el.style.transition = ''; el.style.opacity = ''; el.style.transform = ''; });
+
+          positionTail(item);
+        }, 200);
+
+        return;
+      }
+
+      // Different row or first open: close instantly if already open
+      if (wasOpen) {
+        const innerEls = [...archiveDetail.querySelectorAll('.archive-detail-inner > *')];
+        archiveDetail.style.transition = 'none';
+        innerEls.forEach(el => { el.style.transition = 'none'; });
+        archiveDetail.setAttribute('aria-hidden', 'true');
+        archiveDetail.offsetHeight; // force reflow — children snap to opacity:0
+        archiveDetail.style.transition = '';
+        innerEls.forEach(el => { el.style.transition = ''; });
+      }
+
+      // Swap content and active state
+      archiveDetail.querySelectorAll('.archive-detail-content').forEach(p => { p.hidden = true; });
+      archiveGrid.querySelectorAll('.archive-item.is-active').forEach(i => i.classList.remove('is-active'));
       panel.hidden = false;
       item.classList.add('is-active');
 
-      const wasOpen = archiveDetail.getAttribute('aria-hidden') === 'false';
-      archiveDetail.setAttribute('aria-hidden', 'false');
+      // Find last item in the clicked row and insert panel after it
+      const clickedTop = item.getBoundingClientRect().top;
+      const allItems = [...archiveGrid.querySelectorAll('.archive-item')];
+      const rowItems = allItems.filter(i => Math.abs(i.getBoundingClientRect().top - clickedTop) < 5);
+      rowItems[rowItems.length - 1].after(archiveDetail);
 
-      const scroll = () => window.scrollTo({
-        top: window.scrollY + archiveDetail.getBoundingClientRect().top - 80,
-        behavior: 'smooth'
+      // Snap new panel children to opacity:0 so browser records the "from" state
+      const inEls = [...panel.querySelectorAll('.archive-detail-inner > *')];
+      inEls.forEach(el => { el.style.transition = 'none'; el.style.opacity = '0'; el.style.transform = 'translateY(1rem)'; });
+      archiveDetail.offsetHeight; // force reflow
+      inEls.forEach(el => { el.style.transition = ''; el.style.opacity = ''; el.style.transform = ''; });
+
+      // Position tail to point at the selected item's thumbnail center
+      positionTail(item);
+
+      // Defer open to next frame so browser records children at opacity:0 before transitioning
+      requestAnimationFrame(() => {
+        archiveDetail.setAttribute('aria-hidden', 'false');
+        setTimeout(() => window.scrollTo({
+          top: window.scrollY + archiveDetail.getBoundingClientRect().top - 80,
+          behavior: 'smooth'
+        }), wasOpen ? 0 : 200);
       });
-      wasOpen ? scroll() : setTimeout(scroll, 200);
     }
 
     document.querySelectorAll('.archive-item').forEach(item => {
