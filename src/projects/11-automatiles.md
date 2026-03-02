@@ -1,6 +1,6 @@
 ---
-title: "AutomaTiles"
-slug: "automatatiles"
+title: "Automatiles"
+slug: "automatiles"
 order: 21
 featured: false
 role: "Designer & Engineer"

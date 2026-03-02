@@ -19,20 +19,26 @@ permalink: /archive/
       </div>
       <div class="archive-item-info">
         <span class="archive-item-title">{{ project.data.title }}</span>
-        <span class="archive-item-role">{{ project.data.role }}</span>
       </div>
     </div>
     {%- endfor %}
-  </div>
 
-  <div class="archive-detail" aria-hidden="true">
+    <div class="archive-detail" aria-hidden="true">
     <div class="archive-detail-wrap">
       {%- for project in collections.project %}
       <div class="archive-detail-content" id="archive-detail-{{ project.data.slug }}" hidden>
         <div class="archive-detail-inner">
           <div class="archive-detail-header">
-            <h3>{{ project.data.title }}</h3>
-            <p class="project-meta">{{ project.data.role }}<span class="meta-sep"> · </span>{{ project.data.year }}</p>
+            <div class="archive-detail-header-text">
+              <h3>{{ project.data.title }}</h3>
+              <p class="project-meta">{{ project.data.role }}<span class="meta-sep"> · </span>{{ project.data.year }}</p>
+            </div>
+            {%- if project.data.externalLink %}
+            <a href="{{ project.data.externalLink }}" class="project-link" target="_blank" rel="noopener">
+              visit project
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+            </a>
+            {%- endif %}
           </div>
 
           <div class="project-description">
@@ -55,16 +61,11 @@ permalink: /archive/
           </div>
           {%- endif %}
 
-          {%- if project.data.externalLink %}
-          <a href="{{ project.data.externalLink }}" class="project-link" target="_blank" rel="noopener">
-            View Project →
-          </a>
-          {%- endif %}
-
           <button class="archive-close" aria-label="Close project details">×</button>
         </div>
       </div>
       {%- endfor %}
+    </div>
     </div>
   </div>
 </main>

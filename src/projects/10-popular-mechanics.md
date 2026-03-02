@@ -1,5 +1,5 @@
 ---
-title: "Popular Mechanics - Stay Classy"
+title: "Popular Mechanics"
 slug: "popular-mechanics"
 order: 20
 featured: false
