@@ -5,7 +5,7 @@ order: 13
 featured: false
 role: "Developer"
 year: "2022"
-heroImage: "/images/projects/period-tracker/hero.jpg"
+heroImage: "/images/projects/period-tracker/hero.png"
 heroAlt: "Period Tracker home screen widget showing cycle progress"
 externalLink: "https://github.com/jbobrow/Period-Tracker"
 ---

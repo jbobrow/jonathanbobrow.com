@@ -5,7 +5,7 @@ order: 11
 featured: false
 role: "Designer & Developer"
 year: "2023"
-heroImage: "/images/projects/pauls-quotes/hero.jpg"
+heroImage: "/images/projects/pauls-quotes/hero.png"
 heroAlt: "Paul's Quotes flip-board style quote display"
 externalLink: "https://paulsquotes.com/"
 ---

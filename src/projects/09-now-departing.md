@@ -5,7 +5,7 @@ order: 10
 featured: false
 role: "Founder & Developer"
 year: "2024"
-heroImage: "/images/projects/now-departing/hero.jpg"
+heroImage: "/images/projects/now-departing/hero.gif"
 heroAlt: "Now Departing Apple Watch app showing subway departure times"
 externalLink: "https://nowdeparting.app/"
 ---
