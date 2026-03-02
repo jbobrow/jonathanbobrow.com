@@ -265,4 +265,43 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ===== YouTube facade =====
+  document.querySelectorAll('iframe[src*="youtube.com/embed"]').forEach(iframe => {
+    const match = iframe.src.match(/\/embed\/([^?&]+)/);
+    if (!match) return;
+    const id = match[1];
+    const src = iframe.src;
+
+    const facade = document.createElement('div');
+    facade.className = 'youtube-facade';
+    facade.setAttribute('role', 'button');
+    facade.setAttribute('tabindex', '0');
+    facade.setAttribute('aria-label', 'Play video');
+    facade.innerHTML = `
+      <img src="https://img.youtube.com/vi/${id}/maxresdefault.jpg"
+           onerror="this.src='https://img.youtube.com/vi/${id}/hqdefault.jpg'"
+           alt="" loading="lazy">
+      <div class="youtube-play">
+        <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="36" cy="36" r="36" fill="white" fill-opacity="0.92"/>
+          <polygon points="29,22 29,50 54,36" fill="black"/>
+        </svg>
+      </div>`;
+
+    const play = () => {
+      const el = document.createElement('iframe');
+      el.src = src + (src.includes('?') ? '&' : '?') + 'autoplay=1';
+      el.allowFullscreen = true;
+      el.allow = 'autoplay; encrypted-media';
+      facade.replaceWith(el);
+    };
+
+    facade.addEventListener('click', play);
+    facade.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); play(); }
+    });
+
+    iframe.replaceWith(facade);
+  });
+
 });
