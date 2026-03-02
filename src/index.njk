@@ -25,6 +25,8 @@ activePage: featured
 
     <div class="project-detail" id="detail-{{ project.data.slug }}" aria-hidden="true">
       <div class="project-detail-inner">
+        <button class="project-back" aria-label="Back to featured projects">← Back to Featured Projects</button>
+
         <div class="project-description">
           {{ project.content | safe }}
         </div>
@@ -50,8 +52,6 @@ activePage: featured
           View Project →
         </a>
         {%- endif %}
-
-        <button class="project-close" aria-label="Close project details">×</button>
       </div>
     </div>
   </section>

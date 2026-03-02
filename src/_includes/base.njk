@@ -55,7 +55,13 @@
     document.querySelectorAll('[data-sketch]').forEach(function(el) {
       var name = el.dataset.sketch;
       if (window.p5Sketches && window.p5Sketches[name]) {
-        new p5(function(p) { window.p5Sketches[name](p, el); }, el);
+        var instance = new p5(function(p) { window.p5Sketches[name](p, el); }, el);
+        // Trigger p.windowResized when the container resizes (e.g. grid animation)
+        if (window.ResizeObserver) {
+          new ResizeObserver(function() {
+            if (instance && instance.windowResized) instance.windowResized();
+          }).observe(el);
+        }
       }
     });
   });

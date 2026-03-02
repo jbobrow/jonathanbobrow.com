@@ -110,6 +110,7 @@ main {
   transform: translateY(0);
 }
 
+
 /* ===== Project Hero ===== */
 .project-hero {
   position: relative;
@@ -207,13 +208,14 @@ main {
 .project-detail-inner > * {
   opacity: 0;
   transform: translateY(1rem);
-  transition: opacity 0.5s ease 0.15s, transform 0.5s ease 0.15s;
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.project-detail[aria-hidden="false"] .project-detail-inner > * {
-  opacity: 1;
-  transform: translateY(0);
-}
+.project-detail[aria-hidden="false"] .project-detail-inner > *:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.05s; }
+.project-detail[aria-hidden="false"] .project-detail-inner > *:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.15s; }
+.project-detail[aria-hidden="false"] .project-detail-inner > *:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.25s; }
+.project-detail[aria-hidden="false"] .project-detail-inner > *:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.35s; }
+.project-detail[aria-hidden="false"] .project-detail-inner > *:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 0.45s; }
 
 /* ===== Project Description ===== */
 .project-description {
@@ -301,26 +303,24 @@ main {
   width: fit-content;
 }
 
-/* ===== Close Button ===== */
-.project-close {
-  display: block;
-  margin: var(--space-md) auto 0;
+/* ===== Back Button ===== */
+.project-back {
+  display: inline-block;
   background: none;
   border: none;
-  font-size: 1.5rem;
+  font-family: inherit;
+  font-size: 0.8125rem;
+  font-weight: 500;
   color: var(--color-text-muted);
   cursor: pointer;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
-  transition: background var(--transition-fast), color var(--transition-fast);
-  line-height: 1;
+  padding: 0;
+  transition: color var(--transition-fast);
 }
 
-.project-close:hover {
-  background: rgba(0, 0, 0, 0.05);
+.project-back:hover {
   color: var(--color-text);
 }
+
 
 /* ===== Archive Page ===== */
 .archive {
@@ -637,5 +637,26 @@ main {
 
   .archive-row.is-scrollable {
     cursor: ew-resize;
+  }
+
+  /* Featured: 2-column grid */
+  main#work {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow-x: clip;
+    transition: grid-template-columns 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  main#work.open-left  { grid-template-columns: 1fr 0fr; }
+  main#work.open-right { grid-template-columns: 0fr 1fr; }
+
+  main#work .project {
+    min-width: 0;
+  }
+
+  main#work .project-hero img,
+  main#work .project-hero-sketch {
+    height: 50vh;
   }
 }
