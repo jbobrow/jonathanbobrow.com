@@ -250,17 +250,7 @@ main {
   margin-bottom: var(--space-xs);
 }
 
-/* Media paragraphs: break free of text-width constraint */
-.project-description p:has(> img),
-.project-description p:has(> video),
-.project-description p:has(> iframe) {
-  max-width: none;
-  margin-left: 0;
-  margin-right: 0;
-  margin-bottom: var(--space-sm);
-}
-
-/* Single image fills full available width */
+/* Single image: fills text column width */
 .project-description img {
   display: block;
   width: 100%;
@@ -268,10 +258,10 @@ main {
   border-radius: 3px;
 }
 
-/* Multiple images in the same paragraph: archive-style grid */
+/* Multiple images in the same paragraph: grid within text column */
 .project-description p:has(> img ~ img) {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: var(--archive-gap);
 }
 
@@ -280,23 +270,29 @@ main {
   object-fit: cover;
 }
 
-/* Inline video (locally hosted) */
+/* Inline video (locally hosted): constrained to text column */
 .project-description video {
   display: block;
   width: 100%;
   height: auto;
-  border-radius: 3px;
+  max-width: var(--max-content);
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: var(--space-sm);
+  border-radius: 3px;
 }
 
-/* Responsive iframe: YouTube, Vimeo, or any URL */
+/* Responsive iframe (YouTube, Vimeo, any URL): constrained to text column */
 .project-description iframe {
   display: block;
   width: 100%;
+  max-width: var(--max-content);
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: var(--space-sm);
   aspect-ratio: 16 / 9;
   border: 0;
   border-radius: 3px;
-  margin-bottom: var(--space-sm);
 }
 
 /* ===== Project Gallery ===== */
