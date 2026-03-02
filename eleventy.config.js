@@ -1,4 +1,4 @@
-const PATH_PREFIX = "/jonathanbobrow.com";
+const PATH_PREFIX = process.env.GITHUB_ACTIONS ? "/jonathanbobrow.com" : "";
 
 export default function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/images");
