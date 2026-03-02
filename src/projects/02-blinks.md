@@ -5,7 +5,7 @@ order: 1
 featured: true
 role: "Founder & Designer"
 year: "2018–2022"
-heroImage: "/images/projects/blinks/hero.png"
+heroImage: "/images/projects/blinks/hero.jpg"
 heroAlt: "Smart tabletop game system with illuminated hexagonal tiles"
 detailImages:
   - src: "https://images.unsplash.com/photo-1606167668584-78701c57f13d?w=1600&h=1000&fit=crop"
