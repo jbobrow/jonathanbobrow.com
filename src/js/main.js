@@ -163,9 +163,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (archiveGrid) {
     const archiveItems = [...archiveGrid.querySelectorAll('.archive-item')];
 
-    // Hide items before first paint so the reveal is always a fade-in
-    archiveGrid.classList.add('will-animate');
-
     // Group items by offsetTop — items sharing the same top are in the same row
     const rowMap = new Map();
     archiveItems.forEach(item => {
@@ -174,10 +171,10 @@ document.addEventListener('DOMContentLoaded', () => {
       rowMap.get(top).push(item);
     });
 
-    // Assign transition-delay per row (100ms between rows)
+    // Assign --reveal-delay per row (100ms between rows); CSS uses it for transition-delay
     [...rowMap.values()].forEach((rowItems, rowIndex) => {
       rowItems.forEach(item => {
-        item.style.transitionDelay = (rowIndex * 100) + 'ms';
+        item.style.setProperty('--reveal-delay', (rowIndex * 100) + 'ms');
       });
     });
 
