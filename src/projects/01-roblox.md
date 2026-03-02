@@ -2,7 +2,7 @@
 title: "Roblox Eggs"
 slug: "roblox"
 order: 1
-featured: true
+featured: false
 role: "Creative, Hardware, Electronics"
 year: "2025"
 heroImage: "/images/projects/roblox/hero.jpg"

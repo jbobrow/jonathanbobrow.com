@@ -2,7 +2,7 @@
 title: "iOS Apps"
 slug: "ios-apps"
 order: 5
-featured: true
+featured: false
 role: "Designer & Developer"
 year: "2011–2026"
 heroImage: "/images/projects/ios-apps/hero.png"

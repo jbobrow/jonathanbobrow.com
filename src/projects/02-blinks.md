@@ -1,7 +1,7 @@
 ---
 title: "Blinks"
 slug: "blinks"
-order: 2
+order: 1
 featured: true
 role: "Founder & Designer"
 year: "2018–2022"
