@@ -140,11 +140,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     work.querySelectorAll('.project-hero').forEach(hero => {
-      hero.addEventListener('click', () => openProject(hero.closest('.project')));
+      hero.addEventListener('click', () => {
+        const section = hero.closest('.project');
+        section.classList.contains('is-open') ? closeProject(section) : openProject(section);
+      });
       hero.addEventListener('keydown', e => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          openProject(hero.closest('.project'));
+          const section = hero.closest('.project');
+          section.classList.contains('is-open') ? closeProject(section) : openProject(section);
         }
       });
     });

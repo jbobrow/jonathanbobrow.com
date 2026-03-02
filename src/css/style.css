@@ -130,8 +130,7 @@ main {
 }
 
 /* Dim hero when project is open */
-.project.is-open .project-hero img {
-  filter: brightness(0.7);
+
 }
 
 /* p5.js sketch hero */
@@ -146,9 +145,6 @@ main {
   transition: filter var(--transition-smooth);
 }
 
-.project.is-open .project-hero canvas {
-  filter: brightness(0.7);
-}
 
 .project-hero-overlay {
   position: absolute;
