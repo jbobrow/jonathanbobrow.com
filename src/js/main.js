@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ===== Archive Page: staggered fade-in =====
+  // ===== Archive Page: row-by-row fade-in =====
   const archiveGrid = document.querySelector('.archive-grid');
 
   if (archiveGrid) {
@@ -166,14 +166,26 @@ document.addEventListener('DOMContentLoaded', () => {
     // Hide items before first paint so the reveal is always a fade-in
     archiveGrid.classList.add('will-animate');
 
-    const revealArchive = () => {
-      archiveItems.forEach((item, i) => {
-        item.style.transitionDelay = (i * 60) + 'ms';
-        item.classList.add('is-visible');
+    // Group items by offsetTop — items sharing the same top are in the same row
+    const rowMap = new Map();
+    archiveItems.forEach(item => {
+      const top = item.offsetTop;
+      if (!rowMap.has(top)) rowMap.set(top, []);
+      rowMap.get(top).push(item);
+    });
+
+    // Assign transition-delay per row (100ms between rows)
+    [...rowMap.values()].forEach((rowItems, rowIndex) => {
+      rowItems.forEach(item => {
+        item.style.transitionDelay = (rowIndex * 100) + 'ms';
       });
+    });
+
+    const revealArchive = () => {
+      archiveItems.forEach(item => item.classList.add('is-visible'));
     };
 
-    // Wait for all images to load, then reveal
+    // Wait for page load, then reveal
     if (document.readyState === 'complete') {
       revealArchive();
     } else {
