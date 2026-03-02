@@ -151,8 +151,7 @@ main {
   bottom: 0;
   left: 0;
   right: 0;
-  padding: var(--space-lg) var(--space-md);
-  padding-top: var(--space-xl);
+  padding: var(--space-xl) var(--space-md) var(--space-md);
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.55));
   color: #fff;
   pointer-events: none;
@@ -650,8 +649,7 @@ main {
   }
 
   .project-hero-overlay {
-    padding: var(--space-md);
-    padding-top: var(--space-lg);
+    padding: var(--space-lg) var(--space-md) var(--space-md);
   }
 
   .project-hero-overlay h2 {
