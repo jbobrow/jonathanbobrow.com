@@ -6,8 +6,8 @@ export default function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/js");
 
   // Prefix root-relative src paths in rendered markdown content
-  eleventyConfig.addTransform("prefixImagePaths", function(content, outputPath) {
-    if (!outputPath?.endsWith(".html")) return content;
+  eleventyConfig.addTransform("prefixImagePaths", function(content) {
+    if (typeof this.outputPath !== "string" || !this.outputPath.endsWith(".html")) return content;
     return content.replace(/src="(\/images\/[^"]+)"/g, `src="${PATH_PREFIX}$1"`);
   });
 
