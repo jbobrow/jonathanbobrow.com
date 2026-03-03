@@ -623,7 +623,7 @@ main {
 }
 
 .about[aria-hidden="false"] {
-  max-height: 24rem;
+  max-height: 32rem;
   opacity: 1;
 }
 
@@ -634,7 +634,7 @@ main {
 }
 
 .about p {
-  font-size: 0.8rem;/*1.0625rem;*/
+  font-size: 1.0625rem;
   line-height: 1.7;
   margin-bottom: var(--space-sm);
 }
