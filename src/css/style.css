@@ -727,6 +727,11 @@ main {
     height: 50vh;
   }
 
+  .about-inner {
+    padding-left: var(--space-sm);
+    padding-right: var(--space-sm);
+  }
+
 }
 
 @media (min-width: 769px) {
