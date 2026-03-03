@@ -165,6 +165,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const open = work.querySelector('.project.is-open');
       if (open) closeProject(open);
     });
+
+    document.addEventListener('keydown', e => {
+      if (e.key !== 'Escape') return;
+      const open = work.querySelector('.project.is-open');
+      if (open) closeProject(open);
+    });
   }
 
   // ===== Archive Page: row-by-row fade-in =====
@@ -340,6 +346,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.addEventListener('keydown', e => {
       if (archiveDetail.getAttribute('aria-hidden') !== 'false') return;
+      if (e.key === 'Escape') { closeArchiveDetail(); return; }
       if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
       const items = [...archiveGrid.querySelectorAll('.archive-item')];
       const activeIndex = items.findIndex(i => i.classList.contains('is-active'));
