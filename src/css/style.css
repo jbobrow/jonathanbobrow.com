@@ -439,7 +439,9 @@ main {
 
 /* ===== Back Button ===== */
 .project-back {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
   background: none;
   border: none;
   font-family: inherit;
@@ -680,6 +682,28 @@ main {
 .about-links a:hover {
   color: var(--color-text);
   border-color: var(--color-text);
+}
+
+/* ===== Archive CTA ===== */
+.archive-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: var(--space-xl) var(--space-md);
+  color: var(--color-text-muted);
+  font-size: 0.9375rem;
+  transition: color var(--transition-fast);
+}
+
+.archive-cta:hover {
+  color: var(--color-text);
+}
+
+@media (min-width: 769px) {
+  .archive-cta {
+    grid-column: 1 / -1;
+  }
 }
 
 /* ===== Footer ===== */

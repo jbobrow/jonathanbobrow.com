@@ -398,7 +398,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.archive-item').forEach(item => {
       item.addEventListener('click', () => {
-        item.classList.contains('is-active') ? closeArchiveDetail() : openArchiveProject(item);
+        if (item.classList.contains('is-active')) {
+          isHandlingPopstate = true;
+          closeArchiveDetail();
+          isHandlingPopstate = false;
+          history.replaceState(null, '', (window.siteUrls?.archive) || '/archive/');
+        } else {
+          openArchiveProject(item);
+        }
       });
     });
 
