@@ -159,6 +159,11 @@ document.addEventListener('DOMContentLoaded', () => {
         closeProject(btn.closest('.project'));
       });
     });
+
+    document.querySelector('.site-name').addEventListener('click', e => {
+      const open = work.querySelector('.project.is-open');
+      if (open) { e.preventDefault(); closeProject(open); }
+    });
   }
 
   // ===== Archive Page: row-by-row fade-in =====
@@ -319,6 +324,13 @@ document.addEventListener('DOMContentLoaded', () => {
           behavior: 'smooth'
         });
       });
+    });
+
+    document.querySelector('.site-name').addEventListener('click', e => {
+      if (archiveDetail.getAttribute('aria-hidden') === 'false') {
+        e.preventDefault();
+        closeArchiveDetail();
+      }
     });
   }
 
