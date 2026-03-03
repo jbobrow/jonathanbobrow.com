@@ -44,6 +44,7 @@
     <p>&copy; {{ site.name }}</p>
   </footer>
 
+  <script>window.siteUrls={home:'{{ "/" | url }}',archive:'{{ "/archive/" | url }}',work:'{{ "/work/" | url }}'};</script>
   <script src="{{ '/js/main.js' | url }}" defer></script>
 {%- if activePage == "featured" and (collections.featured | hasSketches) %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.0/p5.min.js" defer></script>

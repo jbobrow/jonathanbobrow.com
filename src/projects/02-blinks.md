@@ -7,7 +7,7 @@ role: "Founder & Designer"
 year: "2018–2022"
 heroImage: "/images/projects/blinks/hero.jpg"
 heroAlt: "Smart tabletop game system with illuminated hexagonal tiles with expansion pack"
-externalLink: "https://blinks.games"
+externalLink: "https://move38.com"
 ---
 
 A smart tabletop game system where each piece is both a game cartrige and part of the game system. Light up, hexagonal tiles snap together magnetically to play dozens of games with friends.

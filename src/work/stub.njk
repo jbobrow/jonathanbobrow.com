@@ -1,0 +1,16 @@
+---
+pagination:
+  data: collections.project
+  size: 1
+  alias: project
+permalink: "/work/{{ project.data.slug }}/"
+layout: false
+---
+<!DOCTYPE html><html><head>
+<meta charset="utf-8">
+<script>
+  sessionStorage.setItem('directEntry', '{{ project.data.slug }}');
+  window.location.replace('{{ ("/" if project.data.featured else "/archive/") | url }}');
+</script>
+<meta http-equiv="refresh" content="0;url={{ ('/' if project.data.featured else '/archive/') | url }}">
+</head></html>

@@ -1,5 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+  function workUrl(slug) {
+    return ((window.siteUrls && window.siteUrls.work) || '/work/') + slug + '/';
+  }
+  let isHandlingPopstate = false;
+
   // --- Scroll Reveal (Featured page) ---
   const projects = document.querySelectorAll('.project');
 
@@ -38,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return { isLeft, sibling, others };
     }
 
-    function openProject(section) {
+    function openProject(section, { skipHistory = false } = {}) {
       if (section.classList.contains('is-open')) return;
 
       const { isLeft, sibling, others } = getContext(section);
@@ -74,6 +79,12 @@ document.addEventListener('DOMContentLoaded', () => {
       hero.setAttribute('aria-expanded', 'true');
       section.classList.add('is-open');
 
+      if (!skipHistory) {
+        const slug = section.id;
+        const title = section.querySelector('h2')?.textContent || document.title;
+        history.pushState({ project: slug, returnTo: 'featured' }, title, workUrl(slug));
+      }
+
       // After animation: hide cells (use visibility to keep sibling in grid
       // flow — display:none would cause the selected project to re-place into
       // the collapsed 0fr column and vanish)
@@ -106,6 +117,14 @@ document.addEventListener('DOMContentLoaded', () => {
       detail.setAttribute('aria-hidden', 'true');
       hero.setAttribute('aria-expanded', 'false');
       section.classList.remove('is-open');
+
+      if (!isHandlingPopstate) {
+        if (history.state?.isDirect) {
+          history.replaceState(null, '', (window.siteUrls?.home) || '/');
+        } else {
+          history.back();
+        }
+      }
 
       if (desktop) {
         if (sibling) {
@@ -168,6 +187,35 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.key !== 'Escape') return;
       const open = work.querySelector('.project.is-open');
       if (open) closeProject(open);
+    });
+
+    // Direct URL entry (stub redirect via sessionStorage)
+    const _directEntry = sessionStorage.getItem('directEntry');
+    if (_directEntry) {
+      const _section = work.querySelector('.project#' + _directEntry);
+      if (_section) {
+        sessionStorage.removeItem('directEntry');
+        history.replaceState(
+          { project: _directEntry, returnTo: 'featured', isDirect: true },
+          _section.querySelector('h2')?.textContent || '',
+          workUrl(_directEntry)
+        );
+        openProject(_section, { skipHistory: true });
+      }
+    }
+
+    window.addEventListener('popstate', (event) => {
+      isHandlingPopstate = true;
+      const state = event.state;
+      if (state?.project) {
+        const section = work.querySelector('.project#' + state.project);
+        if (section && !section.classList.contains('is-open'))
+          openProject(section, { skipHistory: true });
+      } else {
+        const openSection = work.querySelector('.project.is-open');
+        if (openSection) closeProject(openSection);
+      }
+      isHandlingPopstate = false;
     });
   }
 
@@ -233,6 +281,14 @@ document.addEventListener('DOMContentLoaded', () => {
       tail.classList.remove('is-visible');
       archiveDetail.setAttribute('aria-hidden', 'true');
 
+      if (!isHandlingPopstate) {
+        if (history.state?.isDirect) {
+          history.replaceState(null, '', (window.siteUrls?.archive) || '/archive/');
+        } else {
+          history.back();
+        }
+      }
+
       if (activeItem) {
         const header = document.querySelector('.site-header');
         const headerHeight = header ? header.offsetHeight : 0;
@@ -251,9 +307,15 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    function openArchiveProject(item) {
+    function openArchiveProject(item, { skipHistory = false } = {}) {
       const panel = document.getElementById('archive-detail-' + item.dataset.slug);
       if (!panel) return;
+
+      if (!skipHistory) {
+        const slug = item.dataset.slug;
+        const title = item.querySelector('.archive-item-title')?.textContent || slug;
+        history.pushState({ project: slug, returnTo: 'archive' }, title, workUrl(slug));
+      }
 
       const wasOpen = archiveDetail.getAttribute('aria-hidden') === 'false';
       const activeItem = archiveGrid.querySelector('.archive-item.is-active');
@@ -364,6 +426,35 @@ document.addEventListener('DOMContentLoaded', () => {
         if (archiveOpen) closeArchiveDetail();
         // about is closed by the shared about handler
       }
+    });
+
+    // Direct URL entry
+    const _directEntry = sessionStorage.getItem('directEntry');
+    if (_directEntry) {
+      const _item = archiveGrid.querySelector('.archive-item[data-slug="' + _directEntry + '"]');
+      if (_item) {
+        sessionStorage.removeItem('directEntry');
+        history.replaceState(
+          { project: _directEntry, returnTo: 'archive', isDirect: true },
+          _item.querySelector('.archive-item-title')?.textContent || _directEntry,
+          workUrl(_directEntry)
+        );
+        openArchiveProject(_item, { skipHistory: true });
+      }
+    }
+
+    // Browser back/forward
+    window.addEventListener('popstate', (event) => {
+      isHandlingPopstate = true;
+      const state = event.state;
+      if (state?.project) {
+        const item = archiveGrid.querySelector('.archive-item[data-slug="' + state.project + '"]');
+        if (item && !item.classList.contains('is-active'))
+          openArchiveProject(item, { skipHistory: true });
+      } else {
+        if (archiveDetail.getAttribute('aria-hidden') === 'false') closeArchiveDetail();
+      }
+      isHandlingPopstate = false;
     });
   }
 
