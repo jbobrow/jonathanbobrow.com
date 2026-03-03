@@ -471,26 +471,18 @@ main {
 
 .archive-item {
   cursor: pointer;
-}
-
-/* Staggered fade-in: content starts invisible; grey thumb background acts as placeholder */
-.archive-thumb img,
-.archive-item-info {
   opacity: 0;
+  transition: filter 0.3s ease, opacity 0.4s ease var(--reveal-delay, 0ms);
 }
 
-.archive-item.is-visible .archive-thumb img,
-.archive-item.is-visible .archive-item-info {
+.archive-item.is-visible {
   opacity: 1;
-}
-
-.archive-item {
-  transition: filter 0.3s ease, opacity 0.3s ease;
 }
 
 .archive-grid:has(.archive-item.is-active) .archive-item:not(.is-active) {
   filter: grayscale(1);
   opacity: 0.5;
+  transition: filter 0.3s ease, opacity 0.3s ease;
 }
 
 .archive-grid:has(.archive-item.is-active) .archive-item:not(.is-active):hover {
@@ -509,7 +501,7 @@ main {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform var(--transition-fast), opacity 0.4s ease var(--reveal-delay, 0ms);
+  transition: transform var(--transition-fast);
 }
 
 .archive-item:hover .archive-thumb img {
@@ -520,7 +512,6 @@ main {
   display: flex;
   flex-direction: column;
   padding: var(--space-xs) 0;
-  transition: opacity 0.4s ease var(--reveal-delay, 0ms);
 }
 
 .archive-item-title {

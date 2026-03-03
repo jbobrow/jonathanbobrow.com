@@ -190,6 +190,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const revealArchive = () => {
       archiveItems.forEach(item => item.classList.add('is-visible'));
+      // Reset delays after all rows have animated so dimming transitions are instant
+      const resetDelay = (rowMap.size - 1) * 100 + 500;
+      setTimeout(() => {
+        archiveItems.forEach(item => item.style.setProperty('--reveal-delay', '0ms'));
+      }, resetDelay);
     };
 
     // Wait for page load, then reveal
