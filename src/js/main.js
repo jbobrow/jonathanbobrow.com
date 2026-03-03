@@ -219,6 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function closeArchiveDetail() {
+      const activeItem = archiveGrid.querySelector('.archive-item.is-active');
       document.querySelectorAll('.archive-item.is-active').forEach(i => i.classList.remove('is-active'));
       tail.classList.remove('is-visible');
       archiveDetail.setAttribute('aria-hidden', 'true');
@@ -227,6 +228,14 @@ document.addEventListener('DOMContentLoaded', () => {
         archiveDetail.removeEventListener('transitionend', h);
         if (archiveDetail.getAttribute('aria-hidden') === 'true') {
           archiveDetail.querySelectorAll('.archive-detail-content').forEach(p => { p.hidden = true; });
+        }
+        if (activeItem) {
+          const header = document.querySelector('.site-header');
+          const headerHeight = header ? header.offsetHeight : 0;
+          window.scrollTo({
+            top: window.scrollY + activeItem.getBoundingClientRect().top - headerHeight - 24,
+            behavior: 'smooth'
+          });
         }
       });
     }
@@ -319,11 +328,6 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.addEventListener('click', e => {
         e.stopPropagation();
         closeArchiveDetail();
-        const grid = document.querySelector('.archive-grid');
-        window.scrollTo({
-          top: window.scrollY + grid.getBoundingClientRect().top - 80,
-          behavior: 'smooth'
-        });
       });
     });
 
