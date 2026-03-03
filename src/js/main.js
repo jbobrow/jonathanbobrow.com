@@ -349,6 +349,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isHidden) window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     });
+
+    document.querySelector('.site-name').addEventListener('click', () => {
+      if (aboutSection.getAttribute('aria-hidden') === 'false') {
+        aboutSection.setAttribute('aria-hidden', 'true');
+        aboutToggles.forEach(t => t.classList.remove('is-active'));
+      }
+    });
   }
 
   // ===== YouTube facade =====
