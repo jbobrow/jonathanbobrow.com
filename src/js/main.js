@@ -180,7 +180,12 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.site-name').addEventListener('click', e => {
       e.preventDefault();
       const open = work.querySelector('.project.is-open');
-      if (open) closeProject(open);
+      if (open) {
+        isHandlingPopstate = true;
+        closeProject(open);
+        isHandlingPopstate = false;
+        history.replaceState(null, '', (window.siteUrls?.home) || '/');
+      }
     });
 
     document.addEventListener('keydown', e => {
@@ -423,7 +428,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const aboutOpen = about && about.getAttribute('aria-hidden') === 'false';
       if (archiveOpen || aboutOpen) {
         e.preventDefault();
-        if (archiveOpen) closeArchiveDetail();
+        if (archiveOpen) {
+          isHandlingPopstate = true;
+          closeArchiveDetail();
+          isHandlingPopstate = false;
+          history.replaceState(null, '', (window.siteUrls?.archive) || '/archive/');
+        }
         // about is closed by the shared about handler
       }
     });
