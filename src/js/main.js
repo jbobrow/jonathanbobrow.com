@@ -338,6 +338,18 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
+    document.addEventListener('keydown', e => {
+      if (archiveDetail.getAttribute('aria-hidden') !== 'false') return;
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+      const items = [...archiveGrid.querySelectorAll('.archive-item')];
+      const activeIndex = items.findIndex(i => i.classList.contains('is-active'));
+      if (activeIndex === -1) return;
+      const nextIndex = e.key === 'ArrowLeft' ? activeIndex - 1 : activeIndex + 1;
+      if (nextIndex < 0 || nextIndex >= items.length) return;
+      e.preventDefault();
+      openArchiveProject(items[nextIndex]);
+    });
+
     document.querySelector('.site-name').addEventListener('click', e => {
       const archiveOpen = archiveDetail.getAttribute('aria-hidden') === 'false';
       const about = document.getElementById('about');
