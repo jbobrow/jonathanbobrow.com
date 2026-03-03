@@ -161,8 +161,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.querySelector('.site-name').addEventListener('click', e => {
+      e.preventDefault();
       const open = work.querySelector('.project.is-open');
-      if (open) { e.preventDefault(); closeProject(open); }
+      if (open) closeProject(open);
     });
   }
 
