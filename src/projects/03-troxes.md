@@ -33,7 +33,7 @@ One unexpected discovery: Troxes could represent organic forms, not just geometr
 
 The system also has a mathematical elegance worth teaching. Each platonic solid maps to a specific ratio of tiles to vertices. An icosahedron takes twenty tiles. An octahedron takes eight. Understanding that relationship is a gentle entry point into Euler's formula and the geometry of surfaces.
 
-<iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+<iframe data-src="https://www.youtube.com/embed/oKPTghtZPxw?rel=0&autoplay=1&mute=1" allowfullscreen allow="autoplay; encrypted-media" data-autoplay loading="lazy"></iframe>
 
 Troxes was exhibited at the New York Hall of Science, the MIT Media Lab, and several design fairs. In each setting, the same thing happened: adults who "weren't good at math" would build an icosahedron in under ten minutes, look at it, and ask why nobody had shown them geometry this way in school.
 

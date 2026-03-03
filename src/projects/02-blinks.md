@@ -12,9 +12,14 @@ externalLink: "https://move38.com"
 
 A smart tabletop game system where each piece is both a game cartrige and part of the game system. Light up, hexagonal tiles snap together magnetically to play dozens of games with friends.
 
+<iframe data-src="https://www.youtube.com/embed/yuBB3xIdO8Y?rel=0&autoplay=1&mute=1" allowfullscreen allow="autoplay; encrypted-media" data-autoplay loading="lazy"></iframe>
+
 Blinks came out of my MIT Media Lab research in the Playful Systems group.
 
 
 ## Open source
 
 Each Blink is a standalone computer that communicates with its six neighbors through infrared light. Games emerge from simple local rules — no central controller, no phone required. Just pick up and play.
+
+<iframe data-src="https://www.youtube.com/embed/V7XOF0S9BsE?rel=0&autoplay=1&mute=1" allowfullscreen allow="autoplay; encrypted-media" data-autoplay loading="lazy"></iframe>
+

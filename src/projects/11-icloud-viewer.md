@@ -12,6 +12,8 @@ externalLink: "https://icloudviewer.com/"
 
 Shared iCloud albums are useful until you want to do anything with them — bulk download, browse on a non-Apple device, or just see everything in a proper grid. iCloud Viewer fills that gap: paste a share link, get a full gallery.
 
+![screenshot of iCloud Viewer showing Family Trip 2025](/images/projects/icloud-viewer/icloud-viewer-01.jpg)
+
 No Apple ID required. No installation. The entire frontend is a single React HTML file with no build step — JSX in a `<script>` tag, dependencies loaded from CDN, ready to fork or self-host. A lean Express backend proxies requests to the iCloud Shared Streams API, which doesn't support CORS from the browser directly.
 
 The gallery adjusts from 2 to 20 columns, filters by photo or video and by contributor, sorts by date, and exports a ZIP of everything or just one type. The full-resolution viewer supports keyboard arrows and touch swipes. Videos play inline with poster frames. The whole thing is deployed on Google Cloud Run's free tier.

@@ -13,7 +13,7 @@ Nanotronics' flagship product, nSpec, was designed as a modular tool that brings
 
 I designed and developed an cross-platform configurator and iPad app that allowed our sales engineers show, rather than tell our customers how their ideal tool would be configured. The goal was ultimate simplicity with the same attention to detail, care, and craft that the company puts into the products it ships. 
 
-<iframe src="https://www.youtube.com/embed/x3Y2sfrP4ok?rel=0" allowfullscreen></iframe>
+<iframe src="https://www.youtube.com/embed/x3Y2sfrP4ok?rel=0&autoplay=1&mute=1" allowfullscreen allow="autoplay; encrypted-media" data-autoplay loading="lazy"></iframe>
 
 Some fun technical details about the projects include using transparent video elements to give the illusion of realtime animated 3D components. The choreography of these renders allow for mixing and matching as the software plays the videos forwards or backwards to provide a seamless experience.
 
