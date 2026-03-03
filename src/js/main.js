@@ -57,11 +57,10 @@ document.addEventListener('DOMContentLoaded', () => {
         sibling.querySelector('.project-hero').style.width = sibW + 'px';
         sibling._savedWidth = sibW;
 
-        // Left sibling (right-col selected) can't slide via grid position —
-        // column 1 always starts at 0. Use translateX to slide it off-left.
+        // Right-col selected: right-align the left sibling so it tracks the
+        // shrinking column's right edge — perfectly in sync, no translateX needed.
         if (!isLeft) {
-          sibling.style.transition = `transform ${GRID_DUR}ms ${EASE}`;
-          sibling.style.transform = `translateX(-${sibW}px)`;
+          sibling.style.justifySelf = 'end';
         }
       }
 
@@ -83,12 +82,14 @@ document.addEventListener('DOMContentLoaded', () => {
           if (sibling) {
             sibling.querySelector('.project-hero').style.width = '';
             sibling.style.visibility = 'hidden';
-            if (!isLeft) {
-              sibling.style.transition = '';
-              sibling.style.transform = '';
-            }
+            // justifySelf stays set — needed for the close animation
           }
           others.forEach(p => { p.hidden = true; });
+          // Re-anchor: hiding rows above shifts layout — snap hero back to top
+          window.scrollTo({
+            top: window.scrollY + hero.getBoundingClientRect().top - headerH(),
+            behavior: 'instant'
+          });
         }
       }, GRID_DUR);
     }
@@ -109,31 +110,28 @@ document.addEventListener('DOMContentLoaded', () => {
       if (desktop) {
         if (sibling) {
           const savedW = sibling._savedWidth || work.clientWidth / 2;
-          // Left sibling: position it off-screen left before making visible,
-          // so it slides back in (mirroring how it slid out)
-          if (!isLeft) {
-            sibling.style.transform = `translateX(-${savedW}px)`;
-          }
+          // justify-self: end keeps the sibling at x = -savedW in the 0fr column,
+          // so it slides back in naturally as the grid column expands — no transform needed.
           sibling.style.visibility = '';
           sibling.querySelector('.project-hero').style.width = savedW + 'px';
         }
 
         others.forEach(p => { p.hidden = false; });
-        work.offsetHeight; // force reflow — sibling starts from its off-screen state
+        // Instant scroll: getBoundingClientRect() reflects the restored layout,
+        // compensating for any rows above that shifted the section down
+        window.scrollTo({
+          top: window.scrollY + hero.getBoundingClientRect().top - headerH(),
+          behavior: 'instant'
+        });
+        work.offsetHeight; // force reflow before grid animation starts
 
-        // Start both animations simultaneously
-        if (sibling && !isLeft) {
-          sibling.style.transition = `transform ${GRID_DUR}ms ${EASE}`;
-          sibling.style.transform = '';
-        }
         work.classList.remove('open-left', 'open-right');
 
-        // After animation: remove frozen widths and transform
+        // After animation: remove frozen widths and right-alignment override
         setTimeout(() => {
           if (sibling) {
             sibling.querySelector('.project-hero').style.width = '';
-            sibling.style.transition = '';
-            sibling.style.transform = '';
+            if (!isLeft) sibling.style.justifySelf = '';
           }
         }, GRID_DUR);
       }
