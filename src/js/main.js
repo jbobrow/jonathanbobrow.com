@@ -334,9 +334,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.querySelector('.site-name').addEventListener('click', e => {
-      if (archiveDetail.getAttribute('aria-hidden') === 'false') {
+      const archiveOpen = archiveDetail.getAttribute('aria-hidden') === 'false';
+      const about = document.getElementById('about');
+      const aboutOpen = about && about.getAttribute('aria-hidden') === 'false';
+      if (archiveOpen || aboutOpen) {
         e.preventDefault();
-        closeArchiveDetail();
+        if (archiveOpen) closeArchiveDetail();
+        // about is closed by the shared about handler
       }
     });
   }
