@@ -181,7 +181,11 @@ document.addEventListener('DOMContentLoaded', () => {
     work.querySelectorAll('.project-back').forEach(btn => {
       btn.addEventListener('click', e => {
         e.stopPropagation();
-        closeProject(btn.closest('.project'));
+        const section = btn.closest('.project');
+        isHandlingPopstate = true;
+        closeProject(section);
+        isHandlingPopstate = false;
+        history.replaceState(null, '', (window.siteUrls?.home) || '/');
       });
     });
 
