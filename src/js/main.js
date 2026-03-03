@@ -79,6 +79,10 @@ document.addEventListener('DOMContentLoaded', () => {
       hero.setAttribute('aria-expanded', 'true');
       section.classList.add('is-open');
 
+      // Activate lazy autoplay media
+      section.querySelectorAll('iframe[data-src]').forEach(f => { f.src = f.dataset.src; });
+      section.querySelectorAll('video[autoplay]').forEach(v => v.play().catch(() => {}));
+
       if (!skipHistory) {
         const slug = section.id;
         const title = section.querySelector('h2')?.textContent || document.title;
@@ -117,6 +121,10 @@ document.addEventListener('DOMContentLoaded', () => {
       detail.setAttribute('aria-hidden', 'true');
       hero.setAttribute('aria-expanded', 'false');
       section.classList.remove('is-open');
+
+      // Deactivate autoplay media
+      section.querySelectorAll('iframe[data-src]').forEach(f => { f.src = ''; });
+      section.querySelectorAll('video[autoplay]').forEach(v => { v.pause(); v.currentTime = 0; });
 
       if (!isHandlingPopstate) {
         if (history.state?.isDirect) {
@@ -271,6 +279,16 @@ document.addEventListener('DOMContentLoaded', () => {
     tail.className = 'archive-detail-tail';
     archiveGrid.appendChild(tail);
 
+    function activateMedia(el) {
+      el.querySelectorAll('iframe[data-src]').forEach(f => { f.src = f.dataset.src; });
+      el.querySelectorAll('video[autoplay]').forEach(v => v.play().catch(() => {}));
+    }
+
+    function deactivateMedia(el) {
+      el.querySelectorAll('iframe[data-src]').forEach(f => { f.src = ''; });
+      el.querySelectorAll('video[autoplay]').forEach(v => { v.pause(); v.currentTime = 0; });
+    }
+
     function positionTail(item) {
       const itemRect = item.getBoundingClientRect();
       const gridRect = archiveGrid.getBoundingClientRect();
@@ -282,6 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function closeArchiveDetail() {
       const activeItem = archiveGrid.querySelector('.archive-item.is-active');
+      if (activeItem) deactivateMedia(document.getElementById('archive-detail-' + activeItem.dataset.slug));
       document.querySelectorAll('.archive-item.is-active').forEach(i => i.classList.remove('is-active'));
       tail.classList.remove('is-visible');
       archiveDetail.setAttribute('aria-hidden', 'true');
@@ -337,10 +356,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         setTimeout(() => {
+          if (activeItem) deactivateMedia(document.getElementById('archive-detail-' + activeItem.dataset.slug));
           archiveDetail.querySelectorAll('.archive-detail-content').forEach(p => { p.hidden = true; });
           archiveGrid.querySelectorAll('.archive-item.is-active').forEach(i => i.classList.remove('is-active'));
           panel.hidden = false;
           item.classList.add('is-active');
+          activateMedia(panel);
 
           // Snap new content to start state, then let CSS transition take over
           const inEls = [...panel.querySelectorAll('.archive-detail-inner > *')];
@@ -366,10 +387,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       // Swap content and active state
+      if (activeItem) deactivateMedia(document.getElementById('archive-detail-' + activeItem.dataset.slug));
       archiveDetail.querySelectorAll('.archive-detail-content').forEach(p => { p.hidden = true; });
       archiveGrid.querySelectorAll('.archive-item.is-active').forEach(i => i.classList.remove('is-active'));
       panel.hidden = false;
       item.classList.add('is-active');
+      activateMedia(panel);
 
       // Find last item in the clicked row and insert panel after it
       const clickedTop = item.getBoundingClientRect().top;

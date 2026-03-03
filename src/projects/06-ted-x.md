@@ -13,7 +13,7 @@ I was invited to TEDxBratislava to share about my work and research at the inter
 
 My presentation, Creating a Generation of System Thinkers with Play, starts with principals of play before introducing my hypothesis that play can make us better system thinkers. The world continues to become a more complex place and as a society we lack the understanding or even patience for complexity.
 
-<iframe src="https://www.youtube.com/embed/M7YX5eymk7s?rel=0&autoplay=1&mute=1&start=13" allowfullscreen allow="autoplay; encrypted-media" data-autoplay loading="lazy"></iframe>
+<iframe data-src="https://www.youtube.com/embed/M7YX5eymk7s?rel=0&autoplay=1&mute=1&start=13" allowfullscreen allow="autoplay; encrypted-media" data-autoplay loading="lazy"></iframe>
 
 We play to have fun, we learn as a side-effect. Play is so powerful because it is voluntary. While I am not advocating for chocolate broccoli, I do believe we can intentionally design playful systems for a bright, cooperative future.
 
