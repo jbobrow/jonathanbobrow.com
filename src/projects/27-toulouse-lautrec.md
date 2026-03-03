@@ -5,7 +5,7 @@ order: 37
 featured: false
 role: "Programmer"
 year: "2010"
-heroImage: "/images/projects/toulouse-lautrec/hero.png"
+heroImage: "/images/projects/toulouse-lautrec/hero.jpg"
 heroAlt: "Toulouse-Lautrec dot matrix large format print"
 ---
 

@@ -5,7 +5,7 @@ order: 41
 featured: false
 role: "Web Designer"
 year: "2010"
-heroImage: "/images/projects/alumni-group/hero.png"
+heroImage: "/images/projects/alumni-group/hero.jpg"
 heroAlt: "UCLA Dance Marathon Alumni Group website"
 ---
 

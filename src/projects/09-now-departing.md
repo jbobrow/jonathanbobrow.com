@@ -2,10 +2,10 @@
 title: "Now Departing"
 slug: "now-departing"
 order: 10
-featured: false
+featured: true
 role: "Founder & Developer"
 year: "2024"
-heroImage: "/images/projects/now-departing/hero.gif"
+heroImage: "/images/projects/now-departing/hero.jpg"
 heroAlt: "Now Departing Apple Watch app showing subway departure times"
 externalLink: "https://nowdeparting.app/"
 ---
@@ -18,4 +18,5 @@ The native version runs on iPhone and Apple Watch. The watch app was the real mo
 
 The data comes from the MTA's GTFS Realtime feed via MTAPI, the same source that powers wheresthef***ingtrain.com. The UI is minimal black — departure times, line icons, nothing extra. Home screen widgets extend the same information without opening the app.
 
-The original Scriptable version is still in the repository, a JavaScript artifact from before there was a native option.
+The original Scriptable version is still in the repository, a JavaScript artifact from before there was a native option. The following is some explorations for how to have the widget show train direction.
+![Scriptable widget process sketches](/images/projects/now-departing/process-1.jpg)

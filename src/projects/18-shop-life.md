@@ -5,8 +5,9 @@ order: 28
 featured: false
 role: "Designer & Engineer · Potion"
 year: "2012"
-heroImage: "/images/projects/shop-life/hero.png"
+heroImage: "/images/projects/shop-life/hero.jpg"
 heroAlt: "Tenement Museum Shop Life interactive exhibit"
+externalLink: "https://medium.com/@potion_design/shop-life-9ff97d5719be"
 ---
 
 Tenement Museum - Shop Life

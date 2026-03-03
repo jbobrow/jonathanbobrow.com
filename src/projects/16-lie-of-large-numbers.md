@@ -5,7 +5,7 @@ order: 26
 featured: false
 role: "Writer & Programmer"
 year: "2013"
-heroImage: "/images/projects/lie-of-large-numbers/hero.jpg"
+heroImage: "/images/projects/lie-of-large-numbers/hero.png"
 heroAlt: "Lie of Large Numbers data visualization screenshot"
 ---
 

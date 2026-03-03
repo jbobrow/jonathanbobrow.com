@@ -5,7 +5,7 @@ order: 50
 featured: false
 role: "Artist & Performer"
 year: "2008"
-heroImage: "/images/projects/lose-your-calm/hero.png"
+heroImage: "/images/projects/lose-your-calm/hero.jpg"
 heroAlt: "Lose Your Calm plaster word destruction VJ performance"
 ---
 

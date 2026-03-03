@@ -1,7 +1,7 @@
 ---
 title: "Troxes"
 slug: "troxes"
-order: 4
+order: 6
 featured: true
 role: "Founder & Designer"
 year: "2014-2018"

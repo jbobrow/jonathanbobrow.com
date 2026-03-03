@@ -1,7 +1,7 @@
 ---
 title: "TEDxBratislava"
 slug: "ted-x"
-order: 6
+order: 5
 featured: true
 role: "Speaker"
 year: "2017"

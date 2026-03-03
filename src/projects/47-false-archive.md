@@ -5,7 +5,7 @@ order: 57
 featured: false
 role: "3D Artist"
 year: "2007"
-heroImage: "/images/projects/false-archive/hero.png"
+heroImage: "/images/projects/false-archive/hero.jpg"
 heroAlt: "False Archive 3D Maya recreation of Thomas Demand photograph"
 ---
 

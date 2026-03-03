@@ -5,7 +5,7 @@ order: 51
 featured: false
 role: "Hardware & Installation"
 year: "2008"
-heroImage: "/images/projects/rube-goldberg-voting-machine/hero.png"
+heroImage: "/images/projects/rube-goldberg-voting-machine/hero.jpg"
 heroAlt: "Rube Goldberg Voting Machine modular electronic art installation"
 ---
 

@@ -5,7 +5,7 @@ order: 47
 featured: false
 role: "Web Designer & Branding"
 year: "2008"
-heroImage: "/images/projects/ap-custom-home/hero.png"
+heroImage: "/images/projects/ap-custom-home/hero.jpg"
 heroAlt: "AP Custom Home Entertainment logo and website design"
 ---
 

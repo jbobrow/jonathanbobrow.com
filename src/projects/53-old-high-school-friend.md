@@ -5,7 +5,7 @@ order: 63
 featured: false
 role: "Product Designer"
 year: "2014"
-heroImage: "/images/projects/old-high-school-friend/hero.png"
+heroImage: "/images/projects/old-high-school-friend/hero.jpg"
 heroAlt: "TI-83 calculator t-shirt design"
 ---
 

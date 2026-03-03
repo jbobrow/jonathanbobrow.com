@@ -2,10 +2,10 @@
 title: "Avedon"
 slug: "avedon"
 order: 22
-featured: false
+featured: true
 role: "iOS Developer · Potion"
 year: "2014"
-heroImage: "/images/projects/avedon/hero.png"
+heroImage: "/images/projects/avedon/hero.jpg"
 heroAlt: "Avedon iPad app showing archive of photographs"
 ---
 

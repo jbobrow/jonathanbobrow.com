@@ -5,7 +5,7 @@ order: 23
 featured: false
 role: "Designer & Engineer"
 year: "2014"
-heroImage: "/images/projects/dice/hero.png"
+heroImage: "/images/projects/dice/hero.jpg"
 heroAlt: "Dice++ smart electronic dice prototype"
 ---
 
