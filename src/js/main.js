@@ -491,6 +491,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ===== Site embed scaling =====
+  document.querySelectorAll('.site-embed').forEach(wrap => {
+    const iframe = wrap.querySelector('iframe');
+    if (!iframe) return;
+    const nativeW = parseInt(iframe.width) || 1200;
+    const nativeH = parseInt(iframe.height) || 675;
+    const topClip = parseInt(iframe.dataset.topClip) || 0;
+    function rescale() {
+      const f = wrap.offsetWidth / nativeW;
+      iframe.style.transform = topClip
+        ? 'translateY(-' + (topClip * f) + 'px) scale(' + f + ')'
+        : 'scale(' + f + ')';
+      wrap.style.height = ((nativeH - topClip) * f) + 'px';
+    }
+    rescale();
+    if (window.ResizeObserver) new ResizeObserver(rescale).observe(wrap);
+  });
+
   // ===== YouTube facade =====
   document.querySelectorAll('iframe[src*="youtube.com/embed"]').forEach(iframe => {
     const match = iframe.src.match(/\/embed\/([^?&]+)/);

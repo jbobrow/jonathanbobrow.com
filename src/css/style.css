@@ -271,8 +271,8 @@ main {
 }
 
 .project-description p:has(> img ~ img) img {
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
+  width: 100%;
+  height: auto;
 }
 
 /* Inline video (locally hosted): constrained to text column */
@@ -312,6 +312,26 @@ main {
 .project-gallery img {
   width: 100%;
   border-radius: 2px;
+}
+
+/* Site embed (scaled iframe that looks like an inline image) */
+.site-embed {
+  width: 100%;
+  max-width: var(--max-content);
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: var(--space-sm);
+  overflow: hidden;
+  border-radius: 3px;
+}
+
+.site-embed iframe {
+  display: block;
+  width: 1200px; /* override .project-description iframe width: 100% */
+  max-width: none;
+  margin: 0;
+  transform-origin: top left;
+  border: none;
 }
 
 /* ===== Video Embed ===== */
