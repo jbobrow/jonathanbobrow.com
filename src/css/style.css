@@ -461,7 +461,6 @@ main {
 /* ===== Archive Page ===== */
 .archive {
   padding-top: 4.5rem;
-  padding-bottom: var(--space-lg);
 }
 
 /* Wrapping thumbnail grid */
@@ -690,7 +689,7 @@ main {
   align-items: center;
   justify-content: center;
   gap: 0.3rem;
-  padding: var(--space-xl) var(--space-md);
+  padding: var(--space-xl) var(--space-md) var(--space-md);
   color: var(--color-text-muted);
   font-size: 0.9375rem;
   transition: color var(--transition-fast);

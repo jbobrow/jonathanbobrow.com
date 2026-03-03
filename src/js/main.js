@@ -518,6 +518,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ===== YouTube facade =====
   document.querySelectorAll('iframe[src*="youtube.com/embed"]').forEach(iframe => {
+    if ('autoplay' in iframe.dataset) return;
     const match = iframe.src.match(/\/embed\/([^?&]+)/);
     if (!match) return;
     const id = match[1];
