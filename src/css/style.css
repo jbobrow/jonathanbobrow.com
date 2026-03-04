@@ -631,12 +631,15 @@ main {
   overflow: hidden;
   max-height: 0;
   opacity: 0;
-  transition: max-height var(--transition-smooth), opacity var(--transition-smooth);
+  /* closing: ease-out */
+  transition: max-height 0.6s cubic-bezier(0, 0, 0.2, 1), opacity 0.6s cubic-bezier(0, 0, 0.2, 1);
 }
 
 .about[aria-hidden="false"] {
   max-height: 60rem;
   opacity: 1;
+  /* opening: ease-in, matching featured grid transition */
+  transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .about-inner {
