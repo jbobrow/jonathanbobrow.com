@@ -5,7 +5,7 @@ order: 44
 featured: false
 role: "UI Designer & Developer"
 year: "2009"
-heroImage: "/images/projects/ict/hero.png"
+heroImage: "/images/projects/ict/hero.jpg"
 heroAlt: "USC Institute for Creative Technologies touch screen training interface"
 ---
 

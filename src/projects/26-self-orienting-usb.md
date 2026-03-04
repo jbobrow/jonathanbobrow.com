@@ -5,7 +5,7 @@ order: 36
 featured: false
 role: "Hardware Designer"
 year: "2010"
-heroImage: "/images/projects/self-orienting-usb/hero.png"
+heroImage: "/images/projects/self-orienting-usb/hero.jpg"
 heroAlt: "Self-orienting USB connector prototype with magnets"
 ---
 

@@ -5,7 +5,7 @@ order: 45
 featured: false
 role: "Motion Designer"
 year: "2009"
-heroImage: "/images/projects/amazon-commercial/hero.png"
+heroImage: "/images/projects/amazon-commercial/hero.jpg"
 heroAlt: "Amazon.com Excessive Celebration commercial motion design"
 ---
 

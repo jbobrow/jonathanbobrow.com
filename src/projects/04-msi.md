@@ -9,8 +9,6 @@ heroImage: "/images/projects/msi/hero.jpg"
 heroAlt: "Museum of Science and Industry Future Energy interactive exhibit"
 ---
 
-### Museum of Science and Industry - Future Energy
-
 With Potion's team of designers, developers, producers, and 3D artists, I helped to create an immersive space to learn about the future of energy. Stepping into Future Energy is like you put on magic glasses and can see energy particles flowing into and out of everything that consumes and produces them. I was involved in the project from concept pitch to installation, paper prototype to design and software development.
 
 <iframe data-src="https://www.youtube.com/embed/lCX5efupQGI?rel=0&autoplay=1&mute=1" allowfullscreen allow="autoplay; encrypted-media" data-autoplay loading="lazy"></iframe>

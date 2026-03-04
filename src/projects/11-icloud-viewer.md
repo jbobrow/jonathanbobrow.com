@@ -5,7 +5,7 @@ order: 12
 featured: false
 role: "Founder & Developer"
 year: "2024"
-heroImage: "/images/projects/icloud-viewer/hero.png"
+heroImage: "/images/projects/icloud-viewer/hero.jpg"
 heroAlt: "iCloud Viewer showing a photo grid from a shared album"
 externalLink: "https://icloudviewer.com/"
 ---

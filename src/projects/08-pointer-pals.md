@@ -5,7 +5,7 @@ order: 9
 featured: false
 role: "Founder & Developer"
 year: "2023"
-heroImage: "/images/projects/pointer-pals/hero.png"
+heroImage: "/images/projects/pointer-pals/hero.jpg"
 heroAlt: "Pointer Pals app showing remote cursors on a Mac desktop"
 externalLink: "https://pointerpals.jonbobrow.com/"
 ---

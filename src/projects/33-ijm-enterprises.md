@@ -5,7 +5,7 @@ order: 43
 featured: false
 role: "Web Designer & Developer"
 year: "2009"
-heroImage: "/images/projects/ijm-enterprises/hero.png"
+heroImage: "/images/projects/ijm-enterprises/hero.jpg"
 heroAlt: "IJM Enterprises Flash website design"
 ---
 

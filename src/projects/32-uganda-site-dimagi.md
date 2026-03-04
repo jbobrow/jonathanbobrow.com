@@ -5,7 +5,7 @@ order: 42
 featured: false
 role: "Web Designer & Developer"
 year: "2009"
-heroImage: "/images/projects/uganda-site-dimagi/hero.png"
+heroImage: "/images/projects/uganda-site-dimagi/hero.jpg"
 heroAlt: "Uganda school monitoring website with Flash map interface"
 ---
 

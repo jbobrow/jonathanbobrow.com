@@ -1,5 +1,5 @@
 ---
-title: "Set"
+title: "Set Expansion"
 slug: "set"
 order: 31
 featured: false

@@ -5,7 +5,7 @@ order: 39
 featured: false
 role: "Graphic Designer"
 year: "2010"
-heroImage: "/images/projects/popcycle/hero.png"
+heroImage: "/images/projects/popcycle/hero.jpg"
 heroAlt: "Popcycle popsicle bike logo and branding"
 ---
 
