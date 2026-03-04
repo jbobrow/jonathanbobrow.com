@@ -164,16 +164,23 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    function uiCloseProject(section) {
+      isHandlingPopstate = true;
+      closeProject(section);
+      isHandlingPopstate = false;
+      history.replaceState(null, '', (window.siteUrls?.home) || '/');
+    }
+
     work.querySelectorAll('.project-hero').forEach(hero => {
       hero.addEventListener('click', () => {
         const section = hero.closest('.project');
-        section.classList.contains('is-open') ? closeProject(section) : openProject(section);
+        section.classList.contains('is-open') ? uiCloseProject(section) : openProject(section);
       });
       hero.addEventListener('keydown', e => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           const section = hero.closest('.project');
-          section.classList.contains('is-open') ? closeProject(section) : openProject(section);
+          section.classList.contains('is-open') ? uiCloseProject(section) : openProject(section);
         }
       });
     });
@@ -181,11 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
     work.querySelectorAll('.project-back').forEach(btn => {
       btn.addEventListener('click', e => {
         e.stopPropagation();
-        const section = btn.closest('.project');
-        isHandlingPopstate = true;
-        closeProject(section);
-        isHandlingPopstate = false;
-        history.replaceState(null, '', (window.siteUrls?.home) || '/');
+        uiCloseProject(btn.closest('.project'));
       });
     });
 
@@ -203,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('keydown', e => {
       if (e.key !== 'Escape') return;
       const open = work.querySelector('.project.is-open');
-      if (open) closeProject(open);
+      if (open) uiCloseProject(open);
     });
 
     // Direct URL entry (stub redirect via sessionStorage)
