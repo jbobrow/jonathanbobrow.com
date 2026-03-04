@@ -635,7 +635,7 @@ main {
 }
 
 .about[aria-hidden="false"] {
-  max-height: 32rem;
+  max-height: 60rem;
   opacity: 1;
 }
 
