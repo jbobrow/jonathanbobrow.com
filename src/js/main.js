@@ -161,6 +161,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!isLeft) sibling.style.justifySelf = '';
           }
         }, GRID_DUR);
+      } else {
+        // Mobile: scroll hero back into view (no grid restoration needed)
+        window.scrollTo({
+          top: window.scrollY + hero.getBoundingClientRect().top - headerH(),
+          behavior: 'instant'
+        });
       }
     }
 
