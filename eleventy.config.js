@@ -4,6 +4,7 @@ export default function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/images");
   eleventyConfig.addPassthroughCopy("src/css");
   eleventyConfig.addPassthroughCopy("src/js");
+  eleventyConfig.addPassthroughCopy("src/resume.pdf");
 
   // Prefix root-relative src paths in rendered markdown content
   eleventyConfig.addTransform("prefixImagePaths", function(content) {
