@@ -629,23 +629,19 @@ main {
 /* ===== About ===== */
 .about {
   overflow: hidden;
-  max-height: 0;
+  height: 0;
   opacity: 0;
-  /* closing: ease-out */
-  transition: max-height 0.6s cubic-bezier(0, 0, 0.2, 1), opacity 0.6s cubic-bezier(0, 0, 0.2, 1);
+  transition: height 0.6s cubic-bezier(0, 0, 0.2, 1), opacity 0.6s cubic-bezier(0, 0, 0.2, 1);
 }
 
 .about[aria-hidden="false"] {
-  max-height: 60rem;
   opacity: 1;
-  /* opening: ease-out, natural deceleration */
-  transition: max-height 0.6s cubic-bezier(0, 0, 0.2, 1), opacity 0.6s cubic-bezier(0, 0, 0.2, 1);
 }
 
 .about-inner {
   max-width: var(--max-content);
   margin: 0;
-  padding: 3.5rem var(--space-md) var(--space-xl);
+  padding: 3.5rem var(--space-md) var(--space-lg);
 }
 
 .about p {
@@ -669,21 +665,22 @@ main {
 
 .about-links {
   display: flex;
-  gap: var(--space-md);
+  flex-wrap: wrap;
+  gap: var(--space-xs) var(--space-md);
 }
 
 .about-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--color-text-muted);
-  border-bottom: 1px solid var(--color-border);
-  padding-bottom: 1px;
-  transition: color var(--transition-fast), border-color var(--transition-fast);
+  transition: color var(--transition-fast);
 }
 
 .about-links a:hover {
   color: var(--color-text);
-  border-color: var(--color-text);
 }
 
 /* ===== Archive CTA ===== */

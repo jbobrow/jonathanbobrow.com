@@ -505,20 +505,32 @@ document.addEventListener('DOMContentLoaded', () => {
   const aboutSection = document.getElementById('about');
 
   if (aboutToggles.length && aboutSection) {
+    function openAbout() {
+      aboutSection.setAttribute('aria-hidden', 'false');
+      aboutSection.style.height = aboutSection.scrollHeight + 'px';
+      aboutToggles.forEach(t => t.classList.add('is-active'));
+    }
+    function closeAbout() {
+      aboutSection.style.height = '0';
+      aboutSection.setAttribute('aria-hidden', 'true');
+      aboutToggles.forEach(t => t.classList.remove('is-active'));
+    }
+
     aboutToggles.forEach(toggle => {
       toggle.addEventListener('click', e => {
         e.preventDefault();
-        const isHidden = aboutSection.getAttribute('aria-hidden') === 'true';
-        aboutSection.setAttribute('aria-hidden', isHidden ? 'false' : 'true');
-        aboutToggles.forEach(t => t.classList.toggle('is-active', isHidden));
-        if (isHidden) window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (aboutSection.getAttribute('aria-hidden') === 'true') {
+          openAbout();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          closeAbout();
+        }
       });
     });
 
     document.querySelector('.site-name').addEventListener('click', () => {
       if (aboutSection.getAttribute('aria-hidden') === 'false') {
-        aboutSection.setAttribute('aria-hidden', 'true');
-        aboutToggles.forEach(t => t.classList.remove('is-active'));
+        closeAbout();
       }
     });
   }
