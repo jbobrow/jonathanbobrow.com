@@ -426,29 +426,29 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
+    function uiCloseArchiveDetail() {
+      isHandlingPopstate = true;
+      closeArchiveDetail();
+      isHandlingPopstate = false;
+      history.replaceState(null, '', (window.siteUrls?.archive) || '/archive/');
+    }
+
     document.querySelectorAll('.archive-item').forEach(item => {
       item.addEventListener('click', () => {
-        if (item.classList.contains('is-active')) {
-          isHandlingPopstate = true;
-          closeArchiveDetail();
-          isHandlingPopstate = false;
-          history.replaceState(null, '', (window.siteUrls?.archive) || '/archive/');
-        } else {
-          openArchiveProject(item);
-        }
+        item.classList.contains('is-active') ? uiCloseArchiveDetail() : openArchiveProject(item);
       });
     });
 
     document.querySelectorAll('.archive-close').forEach(btn => {
       btn.addEventListener('click', e => {
         e.stopPropagation();
-        closeArchiveDetail();
+        uiCloseArchiveDetail();
       });
     });
 
     document.addEventListener('keydown', e => {
       if (archiveDetail.getAttribute('aria-hidden') !== 'false') return;
-      if (e.key === 'Escape') { closeArchiveDetail(); return; }
+      if (e.key === 'Escape') { uiCloseArchiveDetail(); return; }
       if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
       const items = [...archiveGrid.querySelectorAll('.archive-item')];
       const activeIndex = items.findIndex(i => i.classList.contains('is-active'));
@@ -465,12 +465,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const aboutOpen = about && about.getAttribute('aria-hidden') === 'false';
       if (archiveOpen || aboutOpen) {
         e.preventDefault();
-        if (archiveOpen) {
-          isHandlingPopstate = true;
-          closeArchiveDetail();
-          isHandlingPopstate = false;
-          history.replaceState(null, '', (window.siteUrls?.archive) || '/archive/');
-        }
+        if (archiveOpen) uiCloseArchiveDetail();
         // about is closed by the shared about handler
       }
     });
