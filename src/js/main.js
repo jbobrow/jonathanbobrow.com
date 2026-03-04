@@ -162,10 +162,10 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         }, GRID_DUR);
       } else {
-        // Mobile: scroll hero back into view (no grid restoration needed)
+        // Mobile: animate scroll hero back into view
         window.scrollTo({
           top: window.scrollY + hero.getBoundingClientRect().top - headerH(),
-          behavior: 'instant'
+          behavior: 'smooth'
         });
       }
     }
