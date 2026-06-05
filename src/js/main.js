@@ -46,6 +46,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function openProject(section, { skipHistory = false } = {}) {
       if (section.classList.contains('is-open')) return;
 
+      // Cancel any pending grid timer (e.g. a close still finishing) so stale
+      // callbacks can't fire after this open and leave the layout broken.
+      clearTimeout(section._gridTimer);
+
       const { isLeft, sibling, others } = getContext(section);
       const hero   = section.querySelector('.project-hero');
       const detail = section.querySelector('.project-detail');
@@ -92,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // After animation: hide cells (use visibility to keep sibling in grid
       // flow — display:none would cause the selected project to re-place into
       // the collapsed 0fr column and vanish)
-      setTimeout(() => {
+      section._gridTimer = setTimeout(() => {
         if (desktop) {
           if (sibling) {
             sibling.querySelector('.project-hero').style.width = '';
@@ -111,6 +115,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function closeProject(section) {
       if (!section.classList.contains('is-open')) return;
+
+      // Cancel a pending open timer so it can't hide the other projects after
+      // this close completes (the rapid-click "everything hidden" bug).
+      clearTimeout(section._gridTimer);
 
       const { isLeft, sibling, others } = getContext(section);
       const hero   = section.querySelector('.project-hero');
@@ -155,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
         work.classList.remove('open-left', 'open-right');
 
         // After animation: remove frozen widths and right-alignment override
-        setTimeout(() => {
+        section._gridTimer = setTimeout(() => {
           if (sibling) {
             sibling.querySelector('.project-hero').style.width = '';
             if (!isLeft) sibling.style.justifySelf = '';

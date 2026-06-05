@@ -68,6 +68,15 @@
       var name = el.dataset.sketch;
       if (window.p5Sketches && window.p5Sketches[name]) {
         var instance = new p5(function(p) { window.p5Sketches[name](p, el); }, el);
+        // Fade the sketch in once its canvas has rendered, revealing it over
+        // the black placeholder background.
+        (function waitForCanvas() {
+          if (el.querySelector('canvas')) {
+            requestAnimationFrame(function() { el.classList.add('is-ready'); });
+          } else {
+            requestAnimationFrame(waitForCanvas);
+          }
+        })();
         // Trigger p.windowResized when the container resizes (e.g. grid animation)
         if (window.ResizeObserver) {
           new ResizeObserver(function() {
