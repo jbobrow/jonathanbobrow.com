@@ -554,15 +554,23 @@ document.addEventListener('DOMContentLoaded', () => {
   const aboutSection = document.getElementById('about');
 
   if (aboutToggles.length && aboutSection) {
-    function openAbout() {
+    const aboutUrl = (window.siteUrls && window.siteUrls.about) || '/about/';
+    const homeUrl  = (window.siteUrls && window.siteUrls.home) || '/';
+
+    function openAbout({ skipHistory = false } = {}) {
       aboutSection.setAttribute('aria-hidden', 'false');
       aboutSection.style.height = aboutSection.scrollHeight + 'px';
       aboutToggles.forEach(t => t.classList.add('is-active'));
+      if (!skipHistory) history.pushState({ about: true }, '', aboutUrl);
     }
     function closeAbout() {
       aboutSection.style.height = '0';
       aboutSection.setAttribute('aria-hidden', 'true');
       aboutToggles.forEach(t => t.classList.remove('is-active'));
+    }
+    function uiCloseAbout() {
+      closeAbout();
+      if (!isHandlingPopstate) history.replaceState(null, '', homeUrl);
     }
 
     aboutToggles.forEach(toggle => {
@@ -572,13 +580,28 @@ document.addEventListener('DOMContentLoaded', () => {
           openAbout();
           window.scrollTo({ top: 0, behavior: 'smooth' });
         } else {
-          closeAbout();
+          uiCloseAbout();
         }
       });
     });
 
     document.querySelector('.site-name').addEventListener('click', () => {
-      if (aboutSection.getAttribute('aria-hidden') === 'false') {
+      // site-name is a real link to home; let it navigate, just collapse first
+      if (aboutSection.getAttribute('aria-hidden') === 'false') closeAbout();
+    });
+
+    // Direct entry via /about/ (stub redirect sets this flag)
+    if (sessionStorage.getItem('openAbout')) {
+      sessionStorage.removeItem('openAbout');
+      openAbout({ skipHistory: true });
+      history.replaceState({ about: true }, '', aboutUrl);
+    }
+
+    // Browser back/forward
+    window.addEventListener('popstate', (event) => {
+      if (event.state && event.state.about) {
+        if (aboutSection.getAttribute('aria-hidden') === 'true') openAbout({ skipHistory: true });
+      } else if (aboutSection.getAttribute('aria-hidden') === 'false') {
         closeAbout();
       }
     });
