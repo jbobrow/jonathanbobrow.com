@@ -319,6 +319,36 @@ document.addEventListener('DOMContentLoaded', () => {
       tail.classList.add('is-visible');
     }
 
+    // Last grid item in the same row as `item`, derived from the column count
+    // and item index rather than measured geometry — the open panel is itself a
+    // full-width grid child, so measuring tops would report the row it already
+    // split, not the natural row we need to re-anchor after.
+    function lastItemInRowOf(item) {
+      const items = [...archiveGrid.querySelectorAll('.archive-item')];
+      const cols = getComputedStyle(archiveGrid).gridTemplateColumns.split(' ').filter(Boolean).length;
+      const idx = items.indexOf(item);
+      const rowStart = Math.floor(idx / cols) * cols;
+      return items[Math.min(rowStart + cols - 1, items.length - 1)];
+    }
+
+    // Re-anchor the open detail panel (and its tail) after the active item's
+    // current row. The grid uses auto-fill columns, so a resize can change the
+    // column count and leave the full-width panel breaking a row mid-way.
+    let resizeRAF;
+    function repositionDetail() {
+      if (archiveDetail.getAttribute('aria-hidden') !== 'false') return;
+      const activeItem = archiveGrid.querySelector('.archive-item.is-active');
+      if (!activeItem) return;
+      const last = lastItemInRowOf(activeItem);
+      if (last && last.nextElementSibling !== archiveDetail) last.after(archiveDetail);
+      positionTail(activeItem);
+    }
+    window.addEventListener('resize', () => {
+      if (archiveDetail.getAttribute('aria-hidden') !== 'false') return;
+      cancelAnimationFrame(resizeRAF);
+      resizeRAF = requestAnimationFrame(repositionDetail);
+    });
+
     function closeArchiveDetail() {
       const activeItem = archiveGrid.querySelector('.archive-item.is-active');
       if (activeItem) deactivateMedia(document.getElementById('archive-detail-' + activeItem.dataset.slug));
@@ -416,10 +446,7 @@ document.addEventListener('DOMContentLoaded', () => {
       activateMedia(panel);
 
       // Find last item in the clicked row and insert panel after it
-      const clickedTop = item.getBoundingClientRect().top;
-      const allItems = [...archiveGrid.querySelectorAll('.archive-item')];
-      const rowItems = allItems.filter(i => Math.abs(i.getBoundingClientRect().top - clickedTop) < 5);
-      rowItems[rowItems.length - 1].after(archiveDetail);
+      lastItemInRowOf(item).after(archiveDetail);
 
       // Snap new panel children to opacity:0 so browser records the "from" state
       const inEls = [...panel.querySelectorAll('.archive-detail-inner > *')];
@@ -433,10 +460,18 @@ document.addEventListener('DOMContentLoaded', () => {
       // Defer open to next frame so browser records children at opacity:0 before transitioning
       requestAnimationFrame(() => {
         archiveDetail.setAttribute('aria-hidden', 'false');
-        setTimeout(() => window.scrollTo({
-          top: window.scrollY + archiveDetail.getBoundingClientRect().top - 80,
-          behavior: 'smooth'
-        }), wasOpen ? 0 : 200);
+        const desktop = window.matchMedia('(min-width: 769px)').matches;
+        setTimeout(() => {
+          // Desktop: anchor the clicked row just below the header so its
+          // thumbnails (and the tail pointing to them) stay on screen above
+          // the detail. Mobile: bring the detail panel itself near the top.
+          const header = document.querySelector('.site-header');
+          const headerHeight = header ? header.offsetHeight : 0;
+          const top = desktop
+            ? window.scrollY + item.getBoundingClientRect().top - headerHeight - 24
+            : window.scrollY + archiveDetail.getBoundingClientRect().top - 80;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }, wasOpen ? 0 : 200);
       });
     }
 
