@@ -3,10 +3,13 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "npx @11ty/eleventy",
-    "dev": "npx @11ty/eleventy --serve"
+    "build": "astro build",
+    "dev": "astro dev",
+    "preview": "astro preview"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^3.0.0"
+    "@fontsource/inter": "^5.2.8",
+    "astro": "^7.0.6",
+    "markdown-it": "^14.3.0"
   }
 }
