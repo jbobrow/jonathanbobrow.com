@@ -80,6 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Open detail simultaneously with the horizontal expansion
       detail.setAttribute('aria-hidden', 'false');
+      detail.removeAttribute('inert');
       hero.setAttribute('aria-expanded', 'true');
       section.classList.add('is-open');
 
@@ -127,6 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Collapse detail simultaneously with grid shrinking back
       detail.setAttribute('aria-hidden', 'true');
+      detail.setAttribute('inert', '');
       hero.setAttribute('aria-expanded', 'false');
       section.classList.remove('is-open');
 
@@ -355,6 +357,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.archive-item.is-active').forEach(i => i.classList.remove('is-active'));
       tail.classList.remove('is-visible');
       archiveDetail.setAttribute('aria-hidden', 'true');
+      archiveDetail.setAttribute('inert', '');
 
       if (!isHandlingPopstate) {
         if (history.state?.isDirect) {
@@ -432,6 +435,7 @@ document.addEventListener('DOMContentLoaded', () => {
         archiveDetail.style.transition = 'none';
         innerEls.forEach(el => { el.style.transition = 'none'; });
         archiveDetail.setAttribute('aria-hidden', 'true');
+        archiveDetail.setAttribute('inert', '');
         archiveDetail.offsetHeight; // force reflow — children snap to opacity:0
         archiveDetail.style.transition = '';
         innerEls.forEach(el => { el.style.transition = ''; });
@@ -460,6 +464,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Defer open to next frame so browser records children at opacity:0 before transitioning
       requestAnimationFrame(() => {
         archiveDetail.setAttribute('aria-hidden', 'false');
+        archiveDetail.removeAttribute('inert');
         const desktop = window.matchMedia('(min-width: 769px)').matches;
         setTimeout(() => {
           // Desktop: anchor the clicked row just below the header so its
@@ -559,6 +564,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function openAbout({ skipHistory = false } = {}) {
       aboutSection.setAttribute('aria-hidden', 'false');
+      aboutSection.removeAttribute('inert');
       aboutSection.style.height = aboutSection.scrollHeight + 'px';
       aboutToggles.forEach(t => t.classList.add('is-active'));
       if (!skipHistory) history.pushState({ about: true }, '', aboutUrl);
@@ -566,6 +572,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function closeAbout() {
       aboutSection.style.height = '0';
       aboutSection.setAttribute('aria-hidden', 'true');
+      aboutSection.setAttribute('inert', '');
       aboutToggles.forEach(t => t.classList.remove('is-active'));
     }
     function uiCloseAbout() {

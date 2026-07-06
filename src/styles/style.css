@@ -323,6 +323,35 @@ main {
   border-radius: 2px;
 }
 
+/* Static tweet card (replaces the Twitter widgets.js embed) */
+.project-description a.tweet-card {
+  display: block;
+  max-width: 500px;
+  margin: 0 auto var(--space-sm);
+  padding: 1.25rem 1.5rem;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  color: var(--color-text);
+  transition: border-color var(--transition-fast);
+}
+
+.project-description a.tweet-card:hover {
+  opacity: 1;
+  border-color: #b5b5b5;
+}
+
+.project-description a.tweet-card p {
+  margin: 0 0 0.5rem;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+
+.tweet-card-meta {
+  color: var(--color-text-muted);
+  font-size: 0.8125rem;
+}
+
 /* Site embed (scaled iframe that looks like an inline image) */
 .site-embed {
   width: 100%;

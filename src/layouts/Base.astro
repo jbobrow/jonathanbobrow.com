@@ -7,6 +7,7 @@ import '@fontsource/inter/900.css';
 import inter400 from '@fontsource/inter/files/inter-latin-400-normal.woff2?url';
 import inter600 from '@fontsource/inter/files/inter-latin-600-normal.woff2?url';
 import inter800 from '@fontsource/inter/files/inter-latin-800-normal.woff2?url';
+import p5Url from 'p5/lib/p5.min.js?url';
 import '../styles/style.css';
 import site from '../data/site.json';
 import { featuredProjects, sketchSlugs } from '../lib/projects';
@@ -59,7 +60,7 @@ if (activePage === 'featured') {
     </nav>
   </header>
 
-  <section class="about" id="about" aria-hidden="true">
+  <section class="about" id="about" aria-hidden="true" inert>
     <div class="about-inner">
       <p>Jonathan Bobrow is a designer, inventor, and programmer — constantly curious about the space between play, learning, and technology.</p>
       <p>Designing interactive museum installations first drew him to the intersection of physical and digital worlds.</p>
@@ -85,16 +86,29 @@ if (activePage === 'featured') {
   <script is:inline>window.siteUrls={home:'/',archive:'/archive/',work:'/work/',about:'/about/'};</script>
   <script is:inline src="/js/main.js" defer></script>
 {sketches.length > 0 && (
-  <Fragment>
-<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.0/p5.min.js" defer></script>
-{sketches.map((slug) => (
-<script is:inline src={`/js/sketches/${slug}.js`} defer></script>
-))}
-<script is:inline>
-  document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('[data-sketch]').forEach(function(el) {
-      var name = el.dataset.sketch;
-      if (window.p5Sketches && window.p5Sketches[name]) {
+<script is:inline define:vars={{ p5Url, sketchUrls: sketches.map((slug) => `/js/sketches/${slug}.js`) }}>
+  // p5 is heavy (~1MB, ~1s of main-thread evaluation), so it is self-hosted
+  // and injected only when a sketch container comes near the viewport,
+  // keeping it out of the critical path. Sketches also pause their draw
+  // loop while offscreen.
+  (function() {
+    var els = Array.prototype.slice.call(document.querySelectorAll('[data-sketch]'));
+    if (!els.length) return;
+
+    function loadScript(src) {
+      return new Promise(function(resolve) {
+        var s = document.createElement('script');
+        s.src = src;
+        s.onload = resolve;
+        s.onerror = resolve;
+        document.head.appendChild(s);
+      });
+    }
+
+    function initSketches() {
+      els.forEach(function(el) {
+        var name = el.dataset.sketch;
+        if (!window.p5Sketches || !window.p5Sketches[name]) return;
         var instance = new p5(function(p) { window.p5Sketches[name](p, el); }, el);
         // Fade the sketch in once its canvas has rendered, revealing it over
         // the black placeholder background.
@@ -111,11 +125,40 @@ if (activePage === 'featured') {
             if (instance && instance.windowResized) instance.windowResized();
           }).observe(el);
         }
-      }
-    });
-  });
+        // Pause the draw loop while the sketch is offscreen
+        if ('IntersectionObserver' in window) {
+          new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+              if (entry.isIntersecting) instance.loop();
+              else instance.noLoop();
+            });
+          }).observe(el);
+        }
+      });
+    }
+
+    var started = false;
+    function start() {
+      if (started) return;
+      started = true;
+      loadScript(p5Url).then(function() {
+        return Promise.all(sketchUrls.map(loadScript));
+      }).then(initSketches);
+    }
+
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function(entries) {
+        if (entries.some(function(e) { return e.isIntersecting; })) {
+          io.disconnect();
+          start();
+        }
+      }, { rootMargin: '400px' });
+      els.forEach(function(el) { io.observe(el); });
+    } else {
+      start();
+    }
+  })();
 </script>
-  </Fragment>
 )}
 </body>
 </html>
