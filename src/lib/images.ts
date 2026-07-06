@@ -7,7 +7,7 @@ import type { ImageMetadata } from 'astro';
 // image service to emit responsive WebP variants for hero and thumbnail use.
 // GIFs are excluded so animated heroes pass through untouched.
 const sources = import.meta.glob<{ default: ImageMetadata }>(
-  '/public/images/projects/*/hero.{jpg,jpeg,png,webp}',
+  '/public/images/**/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG}',
   { eager: true }
 );
 
@@ -56,4 +56,9 @@ export function heroImage(publicPath: string | undefined) {
 // Archive thumbnail: grid cells are ~220-350px wide.
 export function thumbImage(publicPath: string | undefined) {
   return variants(publicPath, [320, 640, 960], '(max-width: 768px) 50vw, 320px');
+}
+
+// Markdown-body image: project descriptions are capped at 44rem (704px).
+export function bodyImage(publicPath: string | undefined) {
+  return variants(publicPath, [640, 1280, 1600], '(max-width: 768px) 100vw, 704px');
 }

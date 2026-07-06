@@ -5,6 +5,7 @@ import { thumbImage } from '../lib/images';
 
 const projects = await allProjects();
 const thumbs = await Promise.all(projects.map((p) => thumbImage(p.data.heroImage)));
+const bodies = await Promise.all(projects.map((p) => renderMarkdown(p.body)));
 ---
 
 <Base title="Archive — Jonathan Bobrow" activePage="archive">
@@ -33,7 +34,7 @@ const thumbs = await Promise.all(projects.map((p) => thumbImage(p.data.heroImage
 
     <div class="archive-detail" aria-hidden="true">
     <div class="archive-detail-wrap">
-      {projects.map((project) => (
+      {projects.map((project, i) => (
       <div class="archive-detail-content" id={`archive-detail-${project.data.slug}`} hidden>
         <div class="archive-detail-inner">
           <div class="archive-detail-header">
@@ -48,7 +49,7 @@ const thumbs = await Promise.all(projects.map((p) => thumbImage(p.data.heroImage
             )}
           </div>
 
-          <div class="project-description" set:html={renderMarkdown(project.body)} />
+          <div class="project-description" set:html={bodies[i]} />
 
           {project.data.detailImages && (
           <div class="project-gallery">
