@@ -78,6 +78,7 @@ window.p5Sketches['particles'] = function(p, container) {
   };
 
   p.windowResized = function() {
+    if (!p._renderer) return; // resize can fire before setup() creates the canvas
     p.resizeCanvas(container.offsetWidth, container.offsetHeight);
   };
 };

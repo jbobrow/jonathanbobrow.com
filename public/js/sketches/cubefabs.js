@@ -149,6 +149,7 @@ window.p5Sketches['cubefabs'] = function(p, container) {
   };
 
   p.windowResized = function() {
+    if (!p._renderer) return; // resize can fire before setup() creates the canvas
     p.resizeCanvas(container.offsetWidth, container.offsetHeight);
     if (isOrtho) {
       p.ortho(-p.width/2, p.width/2, -p.height/2, p.height/2, -10000, 10000);
