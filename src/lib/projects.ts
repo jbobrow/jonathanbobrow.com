@@ -1,5 +1,6 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import MarkdownIt from 'markdown-it';
+import { bodyImage } from './images';
 
 export type Project = CollectionEntry<'projects'>;
 
@@ -7,8 +8,41 @@ export type Project = CollectionEntry<'projects'>;
 // render identically to the 11ty site.
 const md = new MarkdownIt({ html: true });
 
-export function renderMarkdown(body: string | undefined): string {
-  return md.render(body ?? '');
+// Body images live inside collapsed detail panels, so they must never load
+// eagerly: without loading="lazy" the browser fetches every detail image on
+// page load even though the panels are hidden (this alone was ~16MB on the
+// featured page). Non-GIF images are also swapped for capped-width WebP
+// srcset variants; anything the pipeline can't resolve keeps its original
+// src and just gets lazy-loading attributes.
+async function optimizeBodyImages(html: string): Promise<string> {
+  const tags = [...new Set(html.match(/<img [^>]*>/g) ?? [])];
+  const replacements = new Map<string, string>();
+
+  for (const tag of tags) {
+    const srcMatch = tag.match(/src="([^"]*)"/);
+    if (!srcMatch) continue;
+    const src = decodeURI(srcMatch[1]);
+    const opt = src.startsWith('/images/') ? await bodyImage(src) : null;
+
+    let out = tag;
+    if (opt) {
+      out = out.replace(
+        srcMatch[0],
+        `src="${opt.src}" srcset="${opt.srcset}" sizes="${opt.sizes}" width="${opt.width}" height="${opt.height}"`
+      );
+    }
+    if (!/loading=/.test(out)) out = out.replace(/>$/, ' loading="lazy" decoding="async">');
+    replacements.set(tag, out);
+  }
+
+  for (const [from, to] of replacements) {
+    html = html.replaceAll(from, to);
+  }
+  return html;
+}
+
+export async function renderMarkdown(body: string | undefined): Promise<string> {
+  return optimizeBodyImages(md.render(body ?? ''));
 }
 
 // All projects sorted by `order`; ties broken by source filename, matching

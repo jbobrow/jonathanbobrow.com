@@ -54,4 +54,5 @@ The build is tuned for Core Web Vitals:
 - All CSS is minified and inlined into the page (no render-blocking stylesheet request)
 - Inter is self-hosted (no Google Fonts round-trip) and the above-the-fold weights are preloaded
 - Hero images and archive thumbnails are served as responsive WebP `srcset` variants sized to their layout
+- Images inside project descriptions are lazy-loaded and served as WebP capped at 1600px (they live in collapsed panels, so nothing loads until a project is opened); GIFs keep their original animated files
 - HTML is minified by Astro's default compression
