@@ -119,10 +119,13 @@ if (activePage === 'featured') {
             requestAnimationFrame(waitForCanvas);
           }
         })();
-        // Trigger p.windowResized when the container resizes (e.g. grid animation)
+        // Trigger p.windowResized when the container resizes (e.g. grid
+        // animation). Skip until setup() has created the canvas — the
+        // observer fires once immediately on observe(), which can be before
+        // the renderer exists.
         if (window.ResizeObserver) {
           new ResizeObserver(function() {
-            if (instance && instance.windowResized) instance.windowResized();
+            if (instance && instance._renderer && instance.windowResized) instance.windowResized();
           }).observe(el);
         }
         // Pause the draw loop while the sketch is offscreen
