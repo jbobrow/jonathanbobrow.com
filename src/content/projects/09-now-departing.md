@@ -20,8 +20,10 @@ Designing for public signage versus designing for an individual, an iPhone, or a
 ## Javascript on iOS
 Now Departing started two years before the app existed, as a Scriptable widget. I wrote the few hundred lines of JavaScript while riding the subway. The goal was to make sure I never enter a subway station, simply to find out I just missed a train and am now past the turnstyle instead of enjoying a matcha. I shared on Twitter, and lots of people asked where they could get it. This was reason enough to turn it into a native app.
 
-<div style="width: 500px; margin: 0 auto; text-align: center;"><blockquote class="twitter-tweet"><p lang="en" dir="ltr">I’d love to get feedback on a widget I made for iOS this weekend. I made it as a little present to myself and any other New Yorkers that ride the same Subway everyday. <a href="https://t.co/ndvpnADOCY">pic.twitter.com/ndvpnADOCY</a></p>&mdash; Jonathan Bobrow (@JonathanBobrow) <a href="https://twitter.com/JonathanBobrow/status/1607868394996465665?ref_src=twsrc%5Etfw">December 27, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-</div>
+<a class="tweet-card" href="https://twitter.com/JonathanBobrow/status/1607868394996465665" target="_blank" rel="noopener">
+<p lang="en" dir="ltr">I’d love to get feedback on a widget I made for iOS this weekend. I made it as a little present to myself and any other New Yorkers that ride the same Subway everyday.</p>
+<span class="tweet-card-meta">— Jonathan Bobrow (@JonathanBobrow) · December 27, 2022 · View on Twitter</span>
+</a>
 
 ## Native iOS (Swift)
 The native version runs on iPhone and Apple Watch. The watch app was the real motivation: a glance at the wrist while walking down the stairs, departure time visible before you reach the turnstile. Getting an Apple Watch as a gift turned into a watchOS project, built in collaboration with ChatGPT as an AI pair programmer, learning the platform's patterns and constraints through conversation rather than documentation alone.

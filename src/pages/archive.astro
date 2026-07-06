@@ -32,7 +32,7 @@ const bodies = await Promise.all(projects.map((p) => renderMarkdown(p.body)));
     </div>
     ))}
 
-    <div class="archive-detail" aria-hidden="true">
+    <div class="archive-detail" aria-hidden="true" inert>
     <div class="archive-detail-wrap">
       {projects.map((project, i) => (
       <div class="archive-detail-content" id={`archive-detail-${project.data.slug}`} hidden>
