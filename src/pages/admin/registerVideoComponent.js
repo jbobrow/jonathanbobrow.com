@@ -1,0 +1,73 @@
+// Matches the lazy-autoplay iframe pattern main.js activates when a project
+// panel opens (see the "Activate lazy autoplay media" blocks in
+// public/js/main.js) — the data-src keeps YouTube from loading until then,
+// and data-autoplay tells the youtube-facade script in main.js to leave
+// this iframe alone rather than replacing it with a click-to-play thumbnail.
+function toEmbedHtml(id, start) {
+  const startParam = start ? `&start=${start}` : '';
+  return `<iframe data-src="https://www.youtube.com/embed/${id}?rel=0&autoplay=1&mute=1${startParam}" allowfullscreen allow="autoplay; encrypted-media" data-autoplay loading="lazy"></iframe>`;
+}
+
+function extractYouTubeId(url) {
+  const match = /(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([\w-]{11})/.exec(url || '');
+  return match ? match[1] : null;
+}
+
+// Falls back to a timestamp already in the pasted URL (?t=90, ?t=1m30s, or
+// ?start=90) if the Start Time field is left blank.
+function extractStartSeconds(url) {
+  if (!url) return undefined;
+  const startMatch = /[?&]start=(\d+)/.exec(url);
+  if (startMatch) return Number(startMatch[1]);
+  const tMatch = /[?&]t=([0-9hms]+)/i.exec(url);
+  if (!tMatch) return undefined;
+  const raw = tMatch[1];
+  if (/^\d+$/.test(raw)) return Number(raw);
+  const h = Number(/(\d+)h/.exec(raw)?.[1] || 0);
+  const m = Number(/(\d+)m/.exec(raw)?.[1] || 0);
+  const s = Number(/(\d+)s/.exec(raw)?.[1] || 0);
+  return h * 3600 + m * 60 + s;
+}
+
+export function registerVideoComponent(CMS) {
+  CMS.registerEditorComponent({
+    id: 'youtube-autoplay',
+    label: 'Video',
+    fields: [
+      {
+        name: 'url',
+        label: 'YouTube URL',
+        widget: 'string',
+        hint: 'Paste a YouTube watch, share, or embed link.',
+      },
+      {
+        name: 'start',
+        label: 'Start Time (seconds)',
+        widget: 'number',
+        value_type: 'int',
+        required: false,
+        hint: 'Optional — leave blank to start at 0:00. A timestamp already in the URL (e.g. ?t=90) is used automatically if you skip this.',
+      },
+    ],
+    pattern:
+      /^<iframe data-src="https:\/\/www\.youtube\.com\/embed\/([\w-]{11})\?rel=0&autoplay=1&mute=1(?:&start=(\d+))?" allowfullscreen allow="autoplay; encrypted-media" data-autoplay loading="lazy"><\/iframe>$/,
+    fromBlock(match) {
+      return {
+        url: `https://www.youtube.com/watch?v=${match[1]}`,
+        start: match[2] ? Number(match[2]) : undefined,
+      };
+    },
+    toBlock(obj) {
+      const id = extractYouTubeId(obj.url);
+      if (!id) return '';
+      const start = obj.start || extractStartSeconds(obj.url);
+      return toEmbedHtml(id, start);
+    },
+    toPreview(obj) {
+      const id = extractYouTubeId(obj.url);
+      return id
+        ? `<img src="https://img.youtube.com/vi/${id}/hqdefault.jpg" alt="" style="max-width:320px;border-radius:4px;display:block" />`
+        : '<em>Paste a YouTube URL to preview</em>';
+    },
+  });
+}
