@@ -3,9 +3,8 @@ backend:
   repo: jbobrow/jonathanbobrow.com
   branch: main
   # OAuth proxy that brokers login with GitHub (a static site can't hold a
-  # client secret). Replace with your deployed Cloudflare Worker URL —
-  # see docs/cms-setup.md.
-  base_url: https://REPLACE-WITH-YOUR-WORKER.workers.dev
+  # client secret). See docs/cms-setup.md.
+  base_url: https://jonathanbobrow-cms-auth.jonathanbobrow.workers.dev
   auth_endpoint: auth
 
 # Commit straight to `main`; each save triggers the existing GitHub Actions
