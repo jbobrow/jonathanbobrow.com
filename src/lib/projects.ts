@@ -45,16 +45,11 @@ export async function renderMarkdown(body: string | undefined): Promise<string> 
   return optimizeBodyImages(md.render(body ?? ''));
 }
 
-// All projects sorted by `order`; ties broken by source filename, matching
-// the 11ty collection's input-path ordering. (entry.id can't be used here:
-// the glob loader replaces it with the frontmatter `slug`.)
+// All projects sorted by `order`, which is unique per project — a CMS-driven
+// edit can safely renumber this field without depending on file layout.
 export async function allProjects(): Promise<Project[]> {
   const projects = await getCollection('projects');
-  return projects.sort(
-    (a, b) =>
-      (a.data.order || 0) - (b.data.order || 0) ||
-      (a.filePath ?? '').localeCompare(b.filePath ?? '')
-  );
+  return projects.sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
 }
 
 export async function featuredProjects(): Promise<Project[]> {

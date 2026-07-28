@@ -1,0 +1,27 @@
+---
+// Self-hosted from the @sveltia/cms npm package (installed as a
+// devDependency) rather than the usual <script src="https://unpkg.com/...">
+// snippet, so the editor doesn't depend on unpkg's uptime and there's one
+// less third-party script origin. This only ships to visitors of /admin —
+// it has no effect on the public site's bundle or Core Web Vitals.
+import sveltiaCmsUrl from '@sveltia/cms?url';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Content Manager — Jonathan Bobrow</title>
+  <meta name="robots" content="noindex" />
+</head>
+<body>
+  <!-- Reads /admin/config.yml (in public/admin/) and renders the editor here.
+       The bundle registers window.CMS as a side effect of loading but does
+       not auto-run — it must be started explicitly. -->
+  <script is:inline src={sveltiaCmsUrl} type="module"></script>
+  <script is:inline type="module">
+    window.CMS.init();
+  </script>
+</body>
+</html>

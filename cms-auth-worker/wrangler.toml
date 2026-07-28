@@ -1,0 +1,10 @@
+name = "jonathanbobrow-cms-auth"
+main = "worker.js"
+compatibility_date = "2025-01-01"
+
+[vars]
+ALLOWED_ORIGIN = "https://jonathanbobrow.com"
+
+# Secrets (not stored here — set via `wrangler secret put`):
+#   GITHUB_CLIENT_ID
+#   GITHUB_CLIENT_SECRET
