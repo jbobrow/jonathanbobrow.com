@@ -1,0 +1,129 @@
+backend:
+  name: github
+  repo: jbobrow/jonathanbobrow.com
+  branch: main
+  # OAuth proxy that brokers login with GitHub (a static site can't hold a
+  # client secret). See docs/cms-setup.md.
+  base_url: https://jonathanbobrow-cms-auth.jonathanbobrow.workers.dev
+  auth_endpoint: auth
+
+# Commit straight to `main`; each save triggers the existing GitHub Actions
+# build + deploy, same as pushing a commit by hand. Switch to
+# `editorial_workflow: true` later if you'd rather review changes as a PR
+# before they go live.
+publish_mode: simple
+
+media_folder: "public/images"
+public_folder: "/images"
+
+collections:
+  - name: "projects"
+    label: "Projects"
+    label_singular: "Project"
+    folder: "src/content/projects"
+    create: true
+    delete: true
+    format: "frontmatter"
+    extension: "md"
+    slug: "{{fields.slug}}"
+    identifier_field: "title"
+    summary: "{{title}} — {{role}}, {{year}}"
+    sortable_fields: ["order", "title", "year"]
+    fields:
+      - label: "Title"
+        name: "title"
+        widget: "string"
+
+      - label: "Slug"
+        name: "slug"
+        widget: "string"
+        hint: "URL-safe id, e.g. my-project. Used as the filename (slug.md) and as the folder name for this project's images. Avoid changing it after publishing — it's part of the project's URL."
+        pattern: ['^[a-z0-9]+(-[a-z0-9]+)*$', "Lowercase letters, numbers, and hyphens only"]
+
+      - label: "Display Order"
+        name: "order"
+        widget: "number"
+        value_type: "int"
+        hint: "Lower numbers appear first, on both the Featured and Archive pages. Must be unique across all projects — check the Archive page order if unsure."
+
+      - label: "Featured"
+        name: "featured"
+        widget: "boolean"
+        default: false
+        hint: "Show on the homepage in addition to the Archive."
+
+      - label: "Role"
+        name: "role"
+        widget: "string"
+        hint: "e.g. Founder & Designer"
+
+      - label: "Year"
+        name: "year"
+        widget: "string"
+        hint: "e.g. 2024 or 2016–2023"
+
+      - label: "Hero Image"
+        name: "heroImage"
+        widget: "image"
+        required: false
+        media_folder: "/public/images/projects/{{slug}}"
+        public_folder: "/images/projects/{{slug}}"
+        hint: "Shown on the Featured and Archive pages. Leave blank if using a Hero Sketch instead."
+
+      - label: "Hero Image Alt Text"
+        name: "heroAlt"
+        widget: "string"
+        required: false
+        hint: "Describe the image for screen readers and SEO."
+
+      - label: "Hero Sketch"
+        name: "heroSketch"
+        widget: "select"
+        required: false
+        options: ["cubefabs", "particles"]
+        hint: "Use an animated p5.js sketch as the hero instead of an image. Leave blank for a normal Hero Image. New sketch names require a matching file in public/js/sketches/ — ask your developer to add one first."
+
+      - label: "Detail Images"
+        name: "detailImages"
+        widget: "list"
+        required: false
+        summary: "{{fields.alt}}"
+        fields:
+          - label: "Image"
+            name: "src"
+            widget: "image"
+            media_folder: "/public/images/projects/{{slug}}"
+            public_folder: "/images/projects/{{slug}}"
+          - label: "Alt Text"
+            name: "alt"
+            widget: "string"
+            default: ""
+
+      - label: "Video Embed URL"
+        name: "video"
+        widget: "string"
+        required: false
+        hint: "YouTube embed URL, e.g. https://www.youtube.com/embed/VIDEO_ID"
+
+      - label: "External Link"
+        name: "externalLink"
+        widget: "string"
+        required: false
+        hint: "Link to the live project, e.g. https://example.com"
+
+      - label: "Description"
+        name: "body"
+        widget: "markdown"
+        hint: "Appears when the project is expanded. Use ## headings to break it into sections."
+
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - name: "site"
+        label: "General"
+        file: "src/data/site.json"
+        fields:
+          - { label: "Site Name", name: "name", widget: "string" }
+          - { label: "Tagline", name: "description", widget: "string" }
+          - { label: "Contact Email", name: "email", widget: "string" }
+          - { label: "Site URL", name: "url", widget: "string" }
