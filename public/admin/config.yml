@@ -80,8 +80,13 @@ collections:
         name: "heroSketch"
         widget: "select"
         required: false
-        options: ["cubefabs", "particles"]
-        hint: "Use an animated p5.js sketch as the hero instead of an image. Leave blank for a normal Hero Image. New sketch names require a matching file in public/js/sketches/ — ask your developer to add one first."
+        default: ""
+        dropdown_threshold: 0
+        options:
+          - { label: "None (use Hero Image)", value: "" }
+          - { label: "Cubefabs", value: "cubefabs" }
+          - { label: "Particles", value: "particles" }
+        hint: "Use an animated p5.js sketch as the hero instead of an image. Choose None for a normal Hero Image. New sketch names require a matching file in public/js/sketches/ — ask your developer to add one first."
 
       - label: "Detail Images"
         name: "detailImages"
