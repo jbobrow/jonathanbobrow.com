@@ -187,8 +187,24 @@ document.addEventListener('DOMContentLoaded', () => {
       history.replaceState(null, '', (window.siteUrls?.home) || '/');
     }
 
+    // Distinguish a click from a drag (e.g. rotating the cubefabs p5 sketch):
+    // the browser fires a native "click" on pointerup regardless of movement
+    // in between, so track how far the pointer traveled and ignore clicks
+    // that moved more than a few pixels.
+    const DRAG_THRESHOLD_PX = 6;
+
     work.querySelectorAll('.project-hero').forEach(hero => {
-      hero.addEventListener('click', () => {
+      let downX = 0;
+      let downY = 0;
+
+      hero.addEventListener('pointerdown', e => {
+        downX = e.clientX;
+        downY = e.clientY;
+      });
+
+      hero.addEventListener('click', e => {
+        const dragDistance = Math.hypot(e.clientX - downX, e.clientY - downY);
+        if (dragDistance > DRAG_THRESHOLD_PX) return;
         const section = hero.closest('.project');
         section.classList.contains('is-open') ? uiCloseProject(section) : openProject(section);
       });
