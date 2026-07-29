@@ -12,6 +12,25 @@
 // build compatible elements — this must be read at call time (after the
 // CMS bundle has loaded and set it), not imported at module scope.
 
+import MarkdownIt from 'markdown-it';
+
+// Same engine + options as src/lib/projects.ts, so headings, images, and
+// raw HTML (our video component's <iframe data-src=...> block) render
+// identically to the live site. Sveltia's own widgetFor('body') widget
+// runs the body through a sanitizing renderer that silently drops raw
+// HTML — fine for typed markdown, but it strips the video block entirely,
+// which is why this renders the body directly instead of using widgetFor.
+const md = new MarkdownIt({ html: true });
+
+function renderBody(raw) {
+  const html = md.render(raw || '');
+  // The live site loads inline videos lazily via data-src, only swapping
+  // in src once a user opens the project (see main.js). There's no such
+  // interaction here, so surface the video immediately for a useful
+  // editing preview instead of leaving a blank box.
+  return html.replace(/<iframe data-src="/g, '<iframe src="');
+}
+
 function field(entry, name) {
   return entry.getIn(['data', name]);
 }
@@ -62,7 +81,10 @@ function ProjectPreview({ entry, widgetFor }) {
     // has no such interaction, so it's rendered already in the "open" state.
     h('div', { className: 'project-detail', 'aria-hidden': 'false' }, [
       h('div', { className: 'project-detail-inner', style: { padding: '2rem 2rem 4rem' } }, [
-        h('div', { className: 'project-description' }, widgetFor('body')),
+        h('div', {
+          className: 'project-description',
+          dangerouslySetInnerHTML: { __html: renderBody(field(entry, 'body')) },
+        }),
         detailImages && detailImages.size > 0
           ? h('div', { className: 'project-gallery' }, widgetFor('detailImages'))
           : null,
