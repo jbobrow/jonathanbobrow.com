@@ -1,18 +1,19 @@
 ---
-title: "Blinks"
-slug: "blinks"
+title: Blinks
+slug: blinks
 order: 4
 featured: true
-role: "Founder & Designer"
-year: "2018–2022"
-heroImage: "/images/projects/blinks/hero.jpg"
-heroAlt: "Smart tabletop game system with illuminated hexagonal tiles with expansion pack"
-externalLink: "https://move38.com"
+role: Founder & Designer
+year: 2018–2022
+heroImage: /images/projects/blinks/hero.jpg
+heroAlt: Smart tabletop game system with illuminated hexagonal tiles with expansion pack
+video: ''
+externalLink: https://move38.com
 ---
 
 Blinks is a tabletop game system where every piece is both a game cartridge and part of the game system. LED-lit, hexagonal tiles that snap together magnetically to play games with friends. Think whack-a-mole, multi-player pong, shuffleboard with rules on timing and attachment. 
 
-Beyond games, Blinks was designed as a system for play. Open-source and easy to program, 1 in 5 customers purchased developer kits and started building their own experiments and games. That ratio wasn't a goal — it was a signal.
+Beyond games, Blinks was designed as a system for play. Open-source and easy to program, 1 in 5 customers purchased developer kits and started building their own experiments and games. That ratio wasn't a goal, but it was a flywheel responsible for the community that formed.
 
 <iframe data-src="https://www.youtube.com/embed/yuBB3xIdO8Y?rel=0&autoplay=1&mute=1" allowfullscreen allow="autoplay; encrypted-media" data-autoplay loading="lazy"></iframe>
 
@@ -25,4 +26,3 @@ Blinks was built the same way: lots of prototyping, getting it into hands early,
 The result was **1,000+ developer kits** sold, **40+ games published** by the community, and more than **100,000 units manufactured** and shipped worldwide. Blinks was funded through Kickstarter campaigns totaling over $600,000. In 2022, global chip shortages brought Blinks production to a halt.
 
 <iframe data-src="https://www.youtube.com/embed/V7XOF0S9BsE?rel=0&autoplay=1&mute=1" allowfullscreen allow="autoplay; encrypted-media" data-autoplay loading="lazy"></iframe>
-
