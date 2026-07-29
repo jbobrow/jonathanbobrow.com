@@ -1,12 +1,16 @@
 ---
-title: "Mootone"
-slug: "mootone"
+title: Mootone
+slug: mootone
 order: 8
 featured: false
-role: "Founder & Designer"
-year: "2017"
-heroImage: "/images/projects/mootone/hero.jpg"
-heroAlt: "Color matching system for MOO business card printing"
+role: Founder & Designer
+year: '2017'
+heroImage: /images/projects/mootone/hero.jpg
+heroAlt: Color matching system for MOO business card printing
+video: ''
+externalLink: https://www.kickstarter.com/projects/jbobrow/mootone-color-matching-system-for-moo-cards/description
 ---
 
 When I discovered that there was no way to print MOO business cards and know the resulting color printed without printing them first, I decided to make a tool to know exactly how my colors will print with MOO (and many digital CMYK services that use HP Indigo printers). The first version of MOOTONE used RGB values, something only thought of as used for designs on screen, and then printed those RGB values to see how the translation occurs. I ran a limited edition of these, hand packed, ordered, and even with a golden foil MOO certificate of authenticity. This tool has saved me many times, not just for my MOO orders.
+
+I documented the process of designing and manufacturing these cards, you can read more about that in the Kickstarter updates [here](https://www.kickstarter.com/projects/jbobrow/mootone-color-matching-system-for-moo-cards/posts/1821621).
