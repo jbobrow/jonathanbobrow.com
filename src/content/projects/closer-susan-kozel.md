@@ -1,7 +1,7 @@
 ---
 title: "Closer, Susan Kozel"
 slug: "closer-susan-kozel"
-order: 53
+order: 54
 featured: false
 role: "Book Designer"
 year: "2007"

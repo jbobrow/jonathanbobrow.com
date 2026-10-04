@@ -1,7 +1,7 @@
 ---
 title: "Uganda Site : Dimagi"
 slug: "uganda-site-dimagi"
-order: 40
+order: 41
 featured: false
 role: "Web Designer & Developer"
 year: "2009"

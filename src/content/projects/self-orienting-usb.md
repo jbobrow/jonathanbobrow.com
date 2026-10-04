@@ -1,7 +1,7 @@
 ---
 title: "Self Orienting USB"
 slug: "self-orienting-usb"
-order: 34
+order: 35
 featured: false
 role: "Hardware Designer"
 year: "2010"

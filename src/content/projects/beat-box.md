@@ -1,7 +1,7 @@
 ---
 title: "Beat Box"
 slug: "beat-box"
-order: 50
+order: 51
 featured: false
 role: "Hardware Designer"
 year: "2007"

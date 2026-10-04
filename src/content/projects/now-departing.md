@@ -1,7 +1,7 @@
 ---
 title: "Now Departing"
 slug: "now-departing"
-order: 15
+order: 16
 featured: true
 role: "Founder & Developer"
 year: "2024"

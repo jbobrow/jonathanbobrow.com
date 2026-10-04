@@ -1,7 +1,7 @@
 ---
 title: "Set Expansion"
 slug: "set"
-order: 29
+order: 30
 featured: false
 role: "Designer & Programmer"
 year: "2012"

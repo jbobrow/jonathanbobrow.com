@@ -1,7 +1,7 @@
 ---
 title: Paul's Quotes
 slug: pauls-quotes
-order: 16
+order: 17
 featured: false
 role: Designer & Developer
 year: '2023'

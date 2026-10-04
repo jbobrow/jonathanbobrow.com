@@ -1,7 +1,7 @@
 ---
 title: "Slit Scan"
 slug: "slit-scan"
-order: 58
+order: 59
 featured: false
 role: "Programmer & Hardware"
 year: "2007"

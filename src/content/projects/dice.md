@@ -1,7 +1,7 @@
 ---
 title: "Dice++"
 slug: "dice"
-order: 22
+order: 23
 featured: false
 role: "Designer & Engineer"
 year: "2014"

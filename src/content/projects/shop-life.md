@@ -1,7 +1,7 @@
 ---
 title: "Shop Life"
 slug: "shop-life"
-order: 26
+order: 27
 featured: false
 role: "Designer & Engineer · Potion"
 year: "2012"

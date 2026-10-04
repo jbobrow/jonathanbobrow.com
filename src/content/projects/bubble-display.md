@@ -1,7 +1,7 @@
 ---
 title: "Bubble Display"
 slug: "bubble-display"
-order: 32
+order: 33
 featured: false
 role: "Designer & Engineer"
 year: "2012"

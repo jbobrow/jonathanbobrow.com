@@ -1,7 +1,7 @@
 ---
 title: "Closer"
 slug: "closer"
-order: 28
+order: 29
 featured: false
 role: "Programmer & Artist"
 year: "2012"

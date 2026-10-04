@@ -1,7 +1,7 @@
 ---
 title: "Smallest Catan"
 slug: "smallest-catan"
-order: 13
+order: 14
 featured: false
 role: "Designer"
 year: "2024"

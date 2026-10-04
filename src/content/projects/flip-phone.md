@@ -1,7 +1,7 @@
 ---
 title: "flip phone"
 slug: "flip-phone"
-order: 30
+order: 31
 featured: false
 role: "Hardware Designer"
 year: "2012"

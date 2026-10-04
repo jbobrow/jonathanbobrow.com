@@ -1,7 +1,7 @@
 ---
 title: "Rube Goldberg Voting Machine"
 slug: "rube-goldberg-voting-machine"
-order: 49
+order: 50
 featured: false
 role: "Hardware & Installation"
 year: "2008"

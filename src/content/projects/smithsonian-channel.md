@@ -1,7 +1,7 @@
 ---
 title: "Smithsonian Channel"
 slug: "smithsonian-channel"
-order: 31
+order: 32
 featured: false
 role: "iOS Developer · Potion"
 year: "2012"

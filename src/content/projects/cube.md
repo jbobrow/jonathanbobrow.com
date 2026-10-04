@@ -1,7 +1,7 @@
 ---
 title: "Cube"
 slug: "cube"
-order: 54
+order: 55
 featured: false
 role: "Artist"
 year: "2007"

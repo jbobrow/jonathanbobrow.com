@@ -1,7 +1,7 @@
 ---
 title: "Algorithm-a-week"
 slug: "algorithm-a-week"
-order: 38
+order: 39
 featured: false
 role: "Programmer & Artist"
 year: "2010"

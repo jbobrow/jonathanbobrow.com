@@ -1,7 +1,7 @@
 ---
 title: "KeyBit"
 slug: "keybit"
-order: 23
+order: 24
 featured: false
 role: "Founder & Designer"
 year: "2013"

@@ -1,7 +1,7 @@
 ---
 title: "Avedon"
 slug: "avedon"
-order: 21
+order: 22
 featured: true
 role: "iOS Developer · Potion"
 year: "2014"
