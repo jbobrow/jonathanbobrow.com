@@ -94,6 +94,17 @@ a {
   color: var(--color-text);
 }
 
+.site-header nav a.nav-external {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15em;
+}
+
+.site-header nav a.nav-external svg {
+  flex-shrink: 0;
+  transform: translateY(-0.1em);
+}
+
 /* ===== Main ===== */
 main {
 }
